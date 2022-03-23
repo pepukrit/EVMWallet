@@ -46,7 +46,8 @@ struct MarketPlaceView: View {
                 .background(Color.buttonBgColor)
                 .roundedClip()
                 
-                Text("Please create a wallet before attempting to interact with custom smart contract")
+                Text("Please create a web3swift wallet before attempting to interact with custom smart contract")
+                    .padding()
                     .font(with: 14, weight: .regular)
                     .multilineTextAlignment(.center)
             }

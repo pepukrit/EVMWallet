@@ -22,13 +22,13 @@ struct TabBarView: View {
         TabView(selection: $tabSelection) {
             AccountView()
                 .tabItem {
-                    Label("Account", systemImage: "mail.stack.fill")
+                    Label("Web3 Account", systemImage: "mail.stack")
                 }
                 .tag(1)
             
             MarketPlaceView()
                 .tabItem {
-                    Label("Market", systemImage: "cart.fill")
+                    Label("Smart Contract", systemImage: "newspaper.fill")
                 }
                 .tag(2)
             
@@ -40,6 +40,7 @@ struct TabBarView: View {
                 .tag(3)
         }
         .accentColor(.white)
+        .preferredColorScheme(.dark)
     }
 }
 

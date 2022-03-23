@@ -32,7 +32,7 @@ struct AccountLoadingView: View {
                 
                 Text("This Page is an attempt to use web3swift framework to interact with EVM")
                     .multilineTextAlignment(.center)
-                    .font(with: 16, weight: .thin)
+                    .font(with: 14, weight: .thin)
             }
             .padding()
             .frame(maxWidth: .infinity)

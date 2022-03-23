@@ -87,7 +87,7 @@ struct WalletCoreAccount: View {
                 
                 Text("This Page is an attempt to use Wallet Core framework to interact with EVM")
                     .multilineTextAlignment(.center)
-                    .font(with: 16, weight: .thin)
+                    .font(with: 14, weight: .thin)
             }
             .padding()
             .font(with: 16, weight: .regular)
