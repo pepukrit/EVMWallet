@@ -12,3 +12,7 @@
 > <strong>pod install</strong>
 
 <p>Next, in a directory App > Secrets > Key, put your rinkeby alchemy private key since the alchemy rinkeby api is implemented in this repository</p>
+
+<br>
+
+<em><p>Please note that, this is not a complete product since the purpose is to focus on web3swift part</p></em>
