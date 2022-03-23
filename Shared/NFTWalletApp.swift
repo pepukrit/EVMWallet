@@ -7,8 +7,7 @@
 
 import SwiftUI
 
-@main
-struct NFTWalletApp: App {
+struct TempNFTWalletApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
