@@ -12,36 +12,38 @@ struct AccountDetailView: View {
     
     var body: some View {
         VStack {
-            HeaderView()
-            
-            PriceStatusView()
-            
-            ButtonView()
-        }
-        .padding(.bottom)
-        .background(
-            LinearGradient(
-                gradient: .init(colors: [.topShader, .lightShader]),
-                startPoint: .top,
-                endPoint: .bottom
+            VStack {
+                HeaderView()
+                
+                PriceStatusView()
+                
+                ButtonView()
+            }
+            .padding(.bottom)
+            .background(
+                LinearGradient(
+                    gradient: .init(colors: [.topShader, .lightShader]),
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
             )
-        )
-        
-        if wallet.isLoading {
-            LottieView(name: "loading-animation")
-                .frame(height: 300)
-                .frame(maxWidth: .infinity)
-                .padding()
-                .background(Color.primaryBgColor)
             
-            Text(wallet.state.statusText)
-                .foregroundColor(.white)
-                .font(.system(size: 16, weight: .heavy, design: .monospaced))
-        } else {
-            CryptocurrencyList()
+            if wallet.isLoading {
+                LottieView(name: "loading-animation")
+                    .frame(height: 300)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.primaryBgColor)
+                
+                Text(wallet.state.statusText)
+                    .foregroundColor(.white)
+                    .font(.system(size: 16, weight: .heavy, design: .monospaced))
+            } else {
+                CryptocurrencyList()
+            }
+            
+            Spacer()
         }
-        
-        Spacer()
     }
 }
 

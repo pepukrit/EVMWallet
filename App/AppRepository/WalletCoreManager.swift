@@ -64,7 +64,8 @@ final class WalletCoreManager: ObservableObject {
                         $0.toAddress = "0x990a2CF2072d24c3663f4C9CAf5CE7829b1A2d0a"
                         $0.transaction = EthereumTransaction.with {
                             $0.transfer = EthereumTransaction.Transfer.with {
-                                $0.amount = Data(hexString: "14d1120d7b160000")! // 0.5 eth
+                                let etherInHexString = String(ether: 0.5)
+                                $0.amount = Data(hexString: etherInHexString)!
                             }
                         }
                         $0.privateKey = wallet.getKeyForCoin(coin: .ethereum).data
