@@ -30,11 +30,13 @@ struct MarketPlaceView: View {
                 }
                 
                 Button(action: {
-                    do {
-                        let boxValue = try wallet.readSmartContract()
-                        self.boxValue = boxValue
-                    } catch {
-                        print(error.localizedDescription)
+                    DispatchQueue.global(qos: .utility).async {
+                        do {
+                            let boxValue = try wallet.readSmartContract()
+                            self.boxValue = boxValue
+                        } catch {
+                            assertionFailure(error.localizedDescription)
+                        }
                     }
                 }) {
                     Text("Store")
