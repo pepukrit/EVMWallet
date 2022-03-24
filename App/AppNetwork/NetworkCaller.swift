@@ -27,16 +27,13 @@ struct NetworkCaller {
             let httpBody = try JSONEncoder().encode(requestNetworkEntity)
             request.httpBody = httpBody
             
-            URLSession.shared.dataTask(with: request) { data, response, error in
-                if let response = response {
-                    print(response)
-                }
+            URLSession.shared.dataTask(with: request) { data, _, error in
                 if let data = data {
                     do {
                         let result = try JSONDecoder().decode(SendRawTransactionResult.self, from: data)
                         completion(result.result)
                     } catch {
-                        //assertionFailure(error.localizedDescription)
+                        assertionFailure(error.localizedDescription)
                         return
                     }
                 }

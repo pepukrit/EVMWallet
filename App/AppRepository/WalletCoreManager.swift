@@ -64,7 +64,7 @@ final class WalletCoreManager: ObservableObject {
                         $0.toAddress = "0x990a2CF2072d24c3663f4C9CAf5CE7829b1A2d0a"
                         $0.transaction = EthereumTransaction.with {
                             $0.transfer = EthereumTransaction.Transfer.with {
-                                $0.amount = Data(hexString: "b1a2bc2ec50000")! // 0.5 eth
+                                $0.amount = Data(hexString: "14d1120d7b160000")! // 0.5 eth
                             }
                         }
                         $0.privateKey = wallet.getKeyForCoin(coin: .ethereum).data
@@ -76,8 +76,10 @@ final class WalletCoreManager: ObservableObject {
                     
                     if let encodedSignTransaction = self.encodedSignTransaction {
                         Task {
-                            try await NetworkCaller.shared.sendTransaction(with: encodedSignTransaction) {
-                                self.sentTransaction = $0
+                            try await NetworkCaller.shared.sendTransaction(with: encodedSignTransaction) { transaction in
+                                DispatchQueue.main.async {
+                                    self.sentTransaction = transaction
+                                }
                                 completion(true)
                             }
                         }
