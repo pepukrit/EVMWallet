@@ -26,6 +26,7 @@
 		A10A4E4327CB93C700CC883F /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10A4E4227CB93C700CC883F /* Wallet.swift */; };
 		A10EF5CE27D306F900B40114 /* WalletManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10EF5CD27D306F900B40114 /* WalletManager.swift */; };
 		A113317B27CD09F300D5A173 /* ETHNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = A113317A27CD09F300D5A173 /* ETHNetwork.swift */; };
+		A127A68027EDE332005F01EE /* WalletCoreSendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A127A67F27EDE332005F01EE /* WalletCoreSendView.swift */; };
 		A12A54E727DF7F850073EDBD /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12A54E627DF7F850073EDBD /* View+Extensions.swift */; };
 		A12A54EA27DF86AE0073EDBD /* ContractABI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12A54E927DF86AE0073EDBD /* ContractABI.swift */; };
 		A12F925627D10738002F2BD4 /* SendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12F925527D10738002F2BD4 /* SendView.swift */; };
@@ -97,6 +98,7 @@
 		A10A4E4227CB93C700CC883F /* Wallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
 		A10EF5CD27D306F900B40114 /* WalletManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletManager.swift; sourceTree = "<group>"; };
 		A113317A27CD09F300D5A173 /* ETHNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ETHNetwork.swift; sourceTree = "<group>"; };
+		A127A67F27EDE332005F01EE /* WalletCoreSendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletCoreSendView.swift; sourceTree = "<group>"; };
 		A12A54E627DF7F850073EDBD /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		A12A54E927DF86AE0073EDBD /* ContractABI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractABI.swift; sourceTree = "<group>"; };
 		A12F925527D10738002F2BD4 /* SendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendView.swift; sourceTree = "<group>"; };
@@ -379,6 +381,7 @@
 			isa = PBXGroup;
 			children = (
 				A14E7CE627E581C800040D80 /* WalletCoreAccount.swift */,
+				A127A67F27EDE332005F01EE /* WalletCoreSendView.swift */,
 			);
 			path = WalletCoreAccount;
 			sourceTree = "<group>";
@@ -729,6 +732,7 @@
 				A1D01FB027D34B6500149E74 /* ButtonView.swift in Sources */,
 				A1CB5AC927EB5FE100626833 /* SendRawTransactionResult.swift in Sources */,
 				A1C1AA2927E99C2C00951807 /* ETHRequest.swift in Sources */,
+				A127A68027EDE332005F01EE /* WalletCoreSendView.swift in Sources */,
 				A1D01FBA27D34C5000149E74 /* AccountLoadingView.swift in Sources */,
 				A10A4E4327CB93C700CC883F /* Wallet.swift in Sources */,
 				A10EF5CE27D306F900B40114 /* WalletManager.swift in Sources */,
