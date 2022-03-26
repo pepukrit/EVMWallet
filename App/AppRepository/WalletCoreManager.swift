@@ -32,7 +32,10 @@ final class WalletCoreManager: ObservableObject {
         }
     }
     
-    func signTransaction(completion: @escaping (Bool) -> Void) async {
+    func signTransaction(for ether: Double,
+                         address: String,
+                         completion: @escaping (Bool) -> Void
+    ) async {
         do {
             if let wallet = wallet {
                 var nonce: String?
@@ -61,10 +64,10 @@ final class WalletCoreManager: ObservableObject {
                         $0.chainID = Data(hexString: "04")!
                         $0.gasPrice = Data(hexString: gasPrice)! // decimal 3600000000
                         $0.gasLimit = Data(hexString: "5208")! // decimal 21000
-                        $0.toAddress = "0x990a2CF2072d24c3663f4C9CAf5CE7829b1A2d0a"
+                        $0.toAddress = address
                         $0.transaction = EthereumTransaction.with {
                             $0.transfer = EthereumTransaction.Transfer.with {
-                                let etherInHexString = String(ether: 0.5)
+                                let etherInHexString = String(ether: ether)
                                 $0.amount = Data(hexString: etherInHexString)!
                             }
                         }

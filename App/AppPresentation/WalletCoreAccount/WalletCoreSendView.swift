@@ -8,15 +8,17 @@
 import SwiftUI
 
 struct WalletCoreSendView: View {
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     @EnvironmentObject var walletCoreManager: WalletCoreManager
     
     @State var selectedTokenCoin: ERC20TokenCoin = .ethereum
     @State var totalAmount: String = "0"
     
-    @State var destinationAddress: String = ""
+    @State var destinationAddress: String = "0x990a2CF2072d24c3663f4C9CAf5CE7829b1A2d0a"
     @State var destinationAmount: String = ""
     
-    @State var shouldAskPasswordConfirmation: Bool = true
+    @State var shouldAskPasswordConfirmation: Bool = false
+    @State var isTransactionSent = false
     
     @State var passphrase: String = ""
     
@@ -58,11 +60,24 @@ struct WalletCoreSendView: View {
                 .listRowBackground(Color.secondaryBgColor)
                 
                 Button(action: {
-                    shouldAskPasswordConfirmation = true
+                    if let ether = Double(destinationAmount) {
+                        Task {
+                            await walletCoreManager.signTransaction(for: ether, address: destinationAddress) {
+                                isTransactionSent = $0
+                            }
+                        }
+                    }
                 }) {
                     Text("Send")
                 }
                 .listRowBackground(Color.buttonBgColor)
+                .alert(isPresented: $isTransactionSent) {
+                    Alert(title: Text("Confirm"),
+                          message: Text("Your transaction has been sent"),
+                          dismissButton: .cancel(Text("OK")) {
+                        mode.wrappedValue.dismiss()
+                    })
+                }
             }
             .foregroundColor(.white)
             .font(.system(size: 18, weight: .regular, design: .monospaced))
@@ -87,14 +102,7 @@ struct WalletCoreSendView: View {
                         .padding(.horizontal)
                         
                         Button(action: {
-//                                shouldShowLoadingView = true
-//                                DispatchQueue.global(qos: .background).async {
-//                                    wallet.send(from: selectedTokenCoin, to: destinationAddress, amount: destinationAmount, network: .rinkeby, passphrase: passphrase) { result in
-//                                        alertViewModel = makeAlertComponentFrom(result: result)
-//                                        shouldShowLoadingView = false
-//                                        shouldShowDialogDone = true
-//                                    }
-//                                }
+                            //TODO: Research more how WalletCore framework use passphrase from a user to verify authority before signing
                         }) {
                             Text("Confirm")
                                 .font(.system(size: 16, weight: .bold, design: .monospaced))
@@ -103,13 +111,6 @@ struct WalletCoreSendView: View {
                         .padding()
                         .background(Color.buttonBgColor)
                         .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-//                            .alert(isPresented: $shouldShowDialogDone) {
-//                                Alert(title: Text(alertViewModel.text),
-//                                      message: Text(alertViewModel.message),
-//                                      dismissButton: .default(Text(alertViewModel.dismissButton)) {
-//                                    mode.wrappedValue.dismiss()
-//                                })
-//                            }
                     }
                     .font(.system(size: 16, weight: .regular, design: .monospaced))
                     .padding()

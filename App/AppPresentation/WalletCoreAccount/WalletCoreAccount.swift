@@ -65,11 +65,6 @@ struct WalletCoreAccount: View {
                         }
                         
                         Button(action: {
-        //                    Task {
-        //                        await walletCoreManager.signTransaction {
-        //                            isTransactionSent = $0
-        //                        }
-        //                    }
                             shouldShowSendView = true
                         }) {
                             Text("Send")
@@ -79,12 +74,6 @@ struct WalletCoreAccount: View {
                         .background(Color.buttonBgColor)
                         .foregroundColor(.white)
                         .cornerRadius(12)
-                        .alert(isPresented: $isTransactionSent) {
-                            Alert(title: Text("Confirm"),
-                                  message: Text("Your transaction has been sent"),
-                                  dismissButton: .cancel(Text("OK"))
-                            )
-                        }
                     }
                     
                     NavigationLink(destination: WalletCoreSendView(), isActive: $shouldShowSendView) {
