@@ -17,8 +17,9 @@ struct WalletCoreSendView: View {
     @State var destinationAddress: String = "0x990a2CF2072d24c3663f4C9CAf5CE7829b1A2d0a"
     @State var destinationAmount: String = ""
     
-    @State var shouldAskPasswordConfirmation: Bool = false
-    @State var isTransactionSent = false
+    @State var destinationAmountInvalid: Bool = false
+    @State var isTransactionSent: Bool = false
+    @State var shouldAskPasswordConfirmation: Bool = false // find a way how to verify authority from WalletCore framework
     
     @State var passphrase: String = ""
     
@@ -35,6 +36,20 @@ struct WalletCoreSendView: View {
                     Picker(selection: $selectedTokenCoin, label: Text("Asset")) {
                         ForEach(ERC20TokenCoin.allCases, id: \.self) { token in
                             Text(token.tokenSymbol)
+                        }
+                        .onAppear {
+                            Task {
+                                await walletCoreManager.retrieveETHBalance {
+                                    totalAmount = String(format: "%.3f", $0) // format double with 3 decimal places
+                                }
+                            }
+                        }
+                        .onChange(of: selectedTokenCoin) { coin in
+                            Task {
+                                await walletCoreManager.retrieveETHBalance {
+                                    totalAmount = String(format: "%.3f", $0)
+                                }
+                            }
                         }
                     }
                     .pickerStyle(.menu)
@@ -66,6 +81,8 @@ struct WalletCoreSendView: View {
                                 isTransactionSent = $0
                             }
                         }
+                    } else {
+                        destinationAmountInvalid = true
                     }
                 }) {
                     Text("Send")
@@ -84,6 +101,11 @@ struct WalletCoreSendView: View {
             .background(Color.primaryBgColor)
             .navigationTitle(Text("Send"))
             .navigationBarTitleDisplayMode(.inline)
+            .alert(isPresented: $destinationAmountInvalid) {
+                Alert(title: Text("Cannot send a transaction"),
+                      message: Text("Ayoo, you try to send \(destinationAmount.isEmpty ? "0" : destinationAmount) eth !"),
+                      dismissButton: .cancel(Text("Try Again"), action: { destinationAmountInvalid = false }))
+            }
             
             if shouldAskPasswordConfirmation {
                 ZStack {

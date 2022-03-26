@@ -15,3 +15,11 @@ extension String {
         : "0\(hexString)"
     }
 }
+
+extension Double {
+    init(hexString: String) {
+        let weiUnit: Double = 1000000000000000000
+        let hexFloat = Float(hexString) ?? 0
+        self = Double(hexFloat) / weiUnit
+    }
+}

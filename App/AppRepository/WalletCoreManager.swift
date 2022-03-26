@@ -32,6 +32,17 @@ final class WalletCoreManager: ObservableObject {
         }
     }
     
+    func retrieveETHBalance(completion: @escaping (Double) -> Void) async {
+        do {
+            try await NetworkCaller.shared.getETHBalance(from: wallet?.getAddressForCoin(coin: .ethereum)) { accountBalanceInHexString in
+                let availableEther = Double(hexString: accountBalanceInHexString)
+                completion(availableEther)
+            }
+        } catch {
+            assertionFailure(error.localizedDescription)
+        }
+    }
+    
     func signTransaction(for ether: Double,
                          address: String,
                          completion: @escaping (Bool) -> Void

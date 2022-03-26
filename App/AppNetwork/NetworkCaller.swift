@@ -100,4 +100,35 @@ struct NetworkCaller {
             }.resume()
         }
     }
+    
+    func getETHBalance(from walletAddress: String?, completion: @escaping (String) -> Void) async throws {
+        if let url = URL(string: Key.alchemyKey), let walletAddress = walletAddress {
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            
+            let requestNetworkEntity = ETHRequest(
+                jsonrpc: "2.0",
+                method: "eth_getBalance",
+                params: [walletAddress, "latest"],
+                id: 0
+            )
+            
+            let httpBody = try JSONEncoder().encode(requestNetworkEntity)
+            request.httpBody = httpBody
+            
+            URLSession.shared.dataTask(with: request) { data, _, error in
+                if let data = data {
+                    do {
+                        let result = try JSONDecoder().decode(ETHResult.self, from: data)
+                        completion(result.result)
+                    } catch {
+                        assertionFailure(error.localizedDescription)
+                        return
+                    }
+                }
+            }
+            .resume()
+        }
+    }
 }
