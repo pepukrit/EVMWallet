@@ -19,7 +19,8 @@ struct WalletCoreSendView: View {
     
     @State var destinationAmountInvalid: Bool = false
     @State var isTransactionSent: Bool = false
-    @State var shouldAskPasswordConfirmation: Bool = false // find a way how to verify authority from WalletCore framework
+    @State var shouldAskPasswordConfirmation: Bool = false
+    @State var shouldShowAlertDialog: Bool = false
     
     @State var passphrase: String = ""
     
@@ -75,15 +76,7 @@ struct WalletCoreSendView: View {
                 .listRowBackground(Color.secondaryBgColor)
                 
                 Button(action: {
-                    if let ether = Double(destinationAmount) {
-                        Task {
-                            await walletCoreManager.signTransaction(for: ether, address: destinationAddress) {
-                                isTransactionSent = $0
-                            }
-                        }
-                    } else {
-                        destinationAmountInvalid = true
-                    }
+                    shouldAskPasswordConfirmation = true
                 }) {
                     Text("Send")
                 }
@@ -124,7 +117,27 @@ struct WalletCoreSendView: View {
                         .padding(.horizontal)
                         
                         Button(action: {
-                            //TODO: Research more how WalletCore framework use passphrase from a user to verify authority before signing
+                            do {
+                                let keyChainPassphrase = try KeyChainManager.shared.getGenericPasswordFor(
+                                    address: walletCoreManager.retrieveAddress(coin: .ethereum)
+                                )
+                                if passphrase == keyChainPassphrase {
+                                    if let ether = Double(destinationAmount) {
+                                        Task {
+                                            await walletCoreManager.signTransaction(for: ether, address: destinationAddress) {
+                                                isTransactionSent = $0
+                                            }
+                                        }
+                                    } else {
+                                        destinationAmountInvalid = true
+                                    }
+                                } else {
+                                    shouldShowAlertDialog = true
+                                }
+                                
+                            } catch {
+                                assertionFailure(error.localizedDescription)
+                            }
                         }) {
                             Text("Confirm")
                                 .font(.system(size: 16, weight: .bold, design: .monospaced))
@@ -139,9 +152,23 @@ struct WalletCoreSendView: View {
                     .background(Color.secondaryBgColor)
                     .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
                     .padding()
+                    .alert(isPresented: $shouldShowAlertDialog) {
+                        makeAlertPassphraseMismatched()
+                    }
                 }
             }
         }
+    }
+}
+
+private extension WalletCoreSendView {
+    func makeAlertPassphraseMismatched() -> Alert {
+        .init(title: Text("Cannot sign a transaction"),
+              message: Text("Your passphrase is incorrect"),
+              dismissButton: .cancel(Text("Confirm")) {
+            shouldShowAlertDialog = false
+            shouldAskPasswordConfirmation = false
+        })
     }
 }
 

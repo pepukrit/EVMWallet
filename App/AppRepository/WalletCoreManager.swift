@@ -14,13 +14,23 @@ final class WalletCoreManager: ObservableObject {
     @Published var encodedSignTransaction: String?
     @Published var sentTransaction: String?
     
-    func createWallet(from mnemonic: String? = nil, passphrase: String = "") {
+    func createWallet(from mnemonic: String? = nil,
+                      passphrase: String = "",
+                      completion: (String) -> Void
+    ) {
         if let mnemonic = mnemonic {
-            wallet = HDWallet(mnemonic: mnemonic, passphrase: passphrase)
+            wallet = HDWallet(mnemonic: mnemonic, passphrase: "")
         } else {
-            wallet = HDWallet(strength: 128, passphrase: passphrase)
+            wallet = HDWallet(strength: 128, passphrase: "")
         }
-        print(wallet?.getAddressForCoin(coin: .ethereum) ?? "")
+        if let address = wallet?.getAddressForCoin(coin: .ethereum) {
+            do {
+                try KeyChainManager.shared.storePassphraseFor(address: address, password: passphrase)
+                completion(address)
+            } catch {
+                assertionFailure(error.localizedDescription)
+            }
+        }
     }
     
     func retrieveAddress(coin: CoinType) -> String {

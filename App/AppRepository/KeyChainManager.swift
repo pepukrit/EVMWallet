@@ -15,6 +15,8 @@ final class KeyChainManager {
             throw KeyChainError.wrapperError
         }
         
+        removePassphraseFor(address: address)
+        
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrAccount as String: address,
@@ -55,6 +57,17 @@ final class KeyChainManager {
               }
         
         return value
+    }
+}
+
+private extension KeyChainManager {
+    func removePassphraseFor(address: String) {
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrAccount as String: address
+        ]
+        
+        SecItemDelete(query as CFDictionary)
     }
 }
 
