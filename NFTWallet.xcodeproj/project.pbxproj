@@ -33,6 +33,7 @@
 		A14E7CE727E581C800040D80 /* WalletCoreAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14E7CE627E581C800040D80 /* WalletCoreAccount.swift */; };
 		A14E7CE927E581DC00040D80 /* WalletCoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14E7CE827E581DC00040D80 /* WalletCoreManager.swift */; };
 		A14F0B6327CE665000CF6388 /* ERC20TokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14F0B6227CE665000CF6388 /* ERC20TokenModel.swift */; };
+		A16390B527F039AA00F7295D /* KeyChainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16390B427F039AA00F7295D /* KeyChainManager.swift */; };
 		A168405827DCC1ED00FB3C8B /* AccountCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A168405727DCC1ED00FB3C8B /* AccountCreationView.swift */; };
 		A168B8F427ECD89F0065B9C8 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A168B8F327ECD89F0065B9C8 /* String+Extension.swift */; };
 		A192F28727E61942005DCD77 /* NetworkCaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = A192F28627E61942005DCD77 /* NetworkCaller.swift */; };
@@ -105,6 +106,7 @@
 		A14E7CE627E581C800040D80 /* WalletCoreAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletCoreAccount.swift; sourceTree = "<group>"; };
 		A14E7CE827E581DC00040D80 /* WalletCoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletCoreManager.swift; sourceTree = "<group>"; };
 		A14F0B6227CE665000CF6388 /* ERC20TokenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ERC20TokenModel.swift; sourceTree = "<group>"; };
+		A16390B427F039AA00F7295D /* KeyChainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainManager.swift; sourceTree = "<group>"; };
 		A168405727DCC1ED00FB3C8B /* AccountCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCreationView.swift; sourceTree = "<group>"; };
 		A168B8F327ECD89F0065B9C8 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		A192F28627E61942005DCD77 /* NetworkCaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCaller.swift; sourceTree = "<group>"; };
@@ -298,6 +300,7 @@
 			children = (
 				A10EF5CD27D306F900B40114 /* WalletManager.swift */,
 				A14E7CE827E581DC00040D80 /* WalletCoreManager.swift */,
+				A16390B427F039AA00F7295D /* KeyChainManager.swift */,
 			);
 			path = AppRepository;
 			sourceTree = "<group>";
@@ -734,6 +737,7 @@
 				A1C1AA2927E99C2C00951807 /* ETHRequest.swift in Sources */,
 				A127A68027EDE332005F01EE /* WalletCoreSendView.swift in Sources */,
 				A1D01FBA27D34C5000149E74 /* AccountLoadingView.swift in Sources */,
+				A16390B527F039AA00F7295D /* KeyChainManager.swift in Sources */,
 				A10A4E4327CB93C700CC883F /* Wallet.swift in Sources */,
 				A10EF5CE27D306F900B40114 /* WalletManager.swift in Sources */,
 			);
