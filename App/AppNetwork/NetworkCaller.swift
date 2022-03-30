@@ -71,7 +71,7 @@ struct NetworkCaller {
         }
     }
     
-    func getTransactionCount(completion: @escaping (String) -> Void) async throws {
+    func getTransactionCount(completion: @escaping (String?) -> Void) async throws {
         if let url = URL(string: Key.alchemyKey) {
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
@@ -94,7 +94,7 @@ struct NetworkCaller {
                         completion(result.result)
                     } catch {
                         assertionFailure(error.localizedDescription)
-                        return
+                        completion(nil)
                     }
                 }
             }.resume()

@@ -53,37 +53,47 @@ final class WalletCoreManager: ObservableObject {
         }
     }
     
-    func signTransaction(for ether: Double,
+    func prepareTransactionModel(completion: @escaping (ETHTransactionModel) -> Void) async throws {
+        if let _ = wallet {
+            var nonce: String?
+            var gasPrice: String?
+            
+            let dispatchGroup = DispatchGroup()
+            dispatchGroup.enter()
+            try await NetworkCaller.shared.getTransactionCount {
+                nonce = $0
+                dispatchGroup.leave()
+            }
+            
+            dispatchGroup.enter()
+            try await  NetworkCaller.shared.fetchGasPrice {
+                gasPrice = $0
+                dispatchGroup.leave()
+            }
+            
+            dispatchGroup.notify(queue: .main) {
+                guard let nonce = nonce, let gasPrice = gasPrice else {
+                    assertionFailure("Unexpectedly found nil")
+                    return
+                }
+                completion(ETHTransactionModel(nonce: nonce, gasPrice: gasPrice))
+            }
+        } else {
+            throw WalletCoreTransactionError.walletNotFound
+        }
+    }
+    
+    func sendTransaction(with ether: Double,
                          address: String,
                          completion: @escaping (Bool) -> Void
     ) async {
         do {
             if let wallet = wallet {
-                var nonce: String?
-                var gasPrice: String?
-                
-                let dispatchGroup = DispatchGroup()
-                dispatchGroup.enter()
-                try await NetworkCaller.shared.getTransactionCount {
-                    nonce = $0
-                    dispatchGroup.leave()
-                }
-                
-                dispatchGroup.enter()
-                try await NetworkCaller.shared.fetchGasPrice {
-                    gasPrice = $0
-                    dispatchGroup.leave()
-                }
-                
-                dispatchGroup.notify(queue: .main) {
-                    guard let nonce = nonce, let gasPrice = gasPrice else {
-                        assertionFailure("Unexpectedly found nil")
-                        return
-                    }
+                try await prepareTransactionModel { transactionModel in
                     let signerInput = EthereumSigningInput.with {
-                        $0.nonce = Data(hexString: nonce)!
+                        $0.nonce = Data(hexString: transactionModel.nonce)!
                         $0.chainID = Data(hexString: "04")!
-                        $0.gasPrice = Data(hexString: gasPrice)! // decimal 3600000000
+                        $0.gasPrice = Data(hexString: transactionModel.gasPrice)! // decimal 3600000000
                         $0.gasLimit = Data(hexString: "5208")! // decimal 21000
                         $0.toAddress = address
                         $0.transaction = EthereumTransaction.with {
@@ -94,25 +104,35 @@ final class WalletCoreManager: ObservableObject {
                         }
                         $0.privateKey = wallet.getKeyForCoin(coin: .ethereum).data
                     }
-                    
-                    let output: EthereumSigningOutput = AnySigner.sign(input: signerInput, coin: .ethereum)
-                    self.encodedSignTransaction = "0x\(output.encoded.hexString)"
-                    //print(" data:   ", output.encoded.hexString)
-                    
-                    if let encodedSignTransaction = self.encodedSignTransaction {
-                        Task {
-                            try await NetworkCaller.shared.sendTransaction(with: encodedSignTransaction) { transaction in
-                                DispatchQueue.main.async {
-                                    self.sentTransaction = transaction
-                                }
-                                completion(true)
-                            }
-                        }
+
+                    self.signTransaction(from: signerInput) {
+                        completion($0)
                     }
                 }
             }
         } catch {
+            assertionFailure(error.localizedDescription)
             return
         }
     }
+    
+    func signTransaction(from signerInput: EthereumSigningInput, completion: @escaping (Bool) -> Void) {
+        let output: EthereumSigningOutput = AnySigner.sign(input: signerInput, coin: .ethereum)
+        self.encodedSignTransaction = "0x\(output.encoded.hexString)"
+        if let encodedSignTransaction = self.encodedSignTransaction {
+            Task {
+                try await NetworkCaller.shared.sendTransaction(with: encodedSignTransaction) { transaction in
+                    DispatchQueue.main.async {
+                        self.sentTransaction = transaction
+                    }
+                    completion(true)
+                }
+            }
+        }
+    }
+}
+
+private enum WalletCoreTransactionError: Error {
+    case walletNotFound
+    case cannotPrepareTransaction
 }

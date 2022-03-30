@@ -124,7 +124,7 @@ struct WalletCoreSendView: View {
                                 if passphrase == keyChainPassphrase {
                                     if let ether = Double(destinationAmount) {
                                         Task {
-                                            await walletCoreManager.signTransaction(for: ether, address: destinationAddress) {
+                                            await walletCoreManager.sendTransaction(with: ether, address: destinationAddress) {
                                                 isTransactionSent = $0
                                             }
                                         }
