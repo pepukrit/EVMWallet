@@ -49,6 +49,7 @@
 		A1D01FB527D34BB900149E74 /* CryptoCurrencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D01FB427D34BB900149E74 /* CryptoCurrencyView.swift */; };
 		A1D01FB827D34BF900149E74 /* AccountDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D01FB727D34BF900149E74 /* AccountDetailView.swift */; };
 		A1D01FBA27D34C5000149E74 /* AccountLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D01FB927D34C5000149E74 /* AccountLoadingView.swift */; };
+		A1E0A30C27F1F74E0048E16C /* ETHTransactionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E0A30B27F1F74E0048E16C /* ETHTransactionModel.swift */; };
 		A1EEEDE627D059300075E0C8 /* ERC20TokenAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EEEDE527D059300075E0C8 /* ERC20TokenAddress.swift */; };
 		A1EEEDE827D0C44F0075E0C8 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EEEDE727D0C44F0075E0C8 /* Color.swift */; };
 		A1EEEDEB27D0CCCA0075E0C8 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = A1EEEDEA27D0CCCA0075E0C8 /* Lottie */; };
@@ -122,6 +123,7 @@
 		A1D01FB427D34BB900149E74 /* CryptoCurrencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoCurrencyView.swift; sourceTree = "<group>"; };
 		A1D01FB727D34BF900149E74 /* AccountDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailView.swift; sourceTree = "<group>"; };
 		A1D01FB927D34C5000149E74 /* AccountLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountLoadingView.swift; sourceTree = "<group>"; };
+		A1E0A30B27F1F74E0048E16C /* ETHTransactionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ETHTransactionModel.swift; sourceTree = "<group>"; };
 		A1EEEDE527D059300075E0C8 /* ERC20TokenAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ERC20TokenAddress.swift; sourceTree = "<group>"; };
 		A1EEEDE727D0C44F0075E0C8 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		A1EEEDED27D0CD2B0075E0C8 /* loading-animation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "loading-animation.json"; sourceTree = "<group>"; };
@@ -272,6 +274,7 @@
 				A113317A27CD09F300D5A173 /* ETHNetwork.swift */,
 				A14F0B6227CE665000CF6388 /* ERC20TokenModel.swift */,
 				A1EEEDE527D059300075E0C8 /* ERC20TokenAddress.swift */,
+				A1E0A30B27F1F74E0048E16C /* ETHTransactionModel.swift */,
 			);
 			path = AppDomain;
 			sourceTree = "<group>";
@@ -317,16 +320,8 @@
 			isa = PBXGroup;
 			children = (
 				A10480D227C91F25002078F3 /* GatewayContract */,
-				A10480D127C91F20002078F3 /* DomainContract */,
 			);
 			path = AppContract;
-			sourceTree = "<group>";
-		};
-		A10480D127C91F20002078F3 /* DomainContract */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = DomainContract;
 			sourceTree = "<group>";
 		};
 		A10480D227C91F25002078F3 /* GatewayContract */ = {
@@ -709,6 +704,7 @@
 				A168B8F427ECD89F0065B9C8 /* String+Extension.swift in Sources */,
 				A10480DC27C92269002078F3 /* AccountView.swift in Sources */,
 				A10480B627C91E9A002078F3 /* ContentView.swift in Sources */,
+				A1E0A30C27F1F74E0048E16C /* ETHTransactionModel.swift in Sources */,
 				A1EEEDE827D0C44F0075E0C8 /* Color.swift in Sources */,
 				A10480DF27C9CE82002078F3 /* MarketPlaceView.swift in Sources */,
 				A1D01FB827D34BF900149E74 /* AccountDetailView.swift in Sources */,
