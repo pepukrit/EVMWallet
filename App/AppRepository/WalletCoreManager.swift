@@ -34,12 +34,13 @@ final class WalletCoreManager: ObservableObject {
     }
     
     func retrieveAddress(coin: CoinType) -> String {
-        if let wallet = wallet {
-            let address = wallet.getAddressForCoin(coin: coin)
-            return address
-        } else {
+        guard let wallet = wallet else {
+            assertionFailure("Unexpectedly not found a wallet")
             return ""
         }
+        let address = wallet.getAddressForCoin(coin: coin)
+        return address
+
     }
     
     func retrieveETHBalance(completion: @escaping (Double) -> Void) async {
