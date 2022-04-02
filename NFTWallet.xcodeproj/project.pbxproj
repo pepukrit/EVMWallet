@@ -24,6 +24,7 @@
 		A10480DF27C9CE82002078F3 /* MarketPlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10480DE27C9CE82002078F3 /* MarketPlaceView.swift */; };
 		A1065B7027F74A8700BDC08B /* ContractABIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1065B6F27F74A8700BDC08B /* ContractABIManager.swift */; };
 		A1065B7327F7581D00BDC08B /* WalletCoreSmartContractView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1065B7227F7581D00BDC08B /* WalletCoreSmartContractView.swift */; };
+		A1065B7527F7EF7100BDC08B /* GenericSCRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1065B7427F7EF7100BDC08B /* GenericSCRequest.swift */; };
 		A10A4E4127CB937B00CC883F /* web3swift in Frameworks */ = {isa = PBXBuildFile; productRef = A10A4E4027CB937B00CC883F /* web3swift */; };
 		A10A4E4327CB93C700CC883F /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10A4E4227CB93C700CC883F /* Wallet.swift */; };
 		A10EF5CE27D306F900B40114 /* WalletManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10EF5CD27D306F900B40114 /* WalletManager.swift */; };
@@ -38,9 +39,10 @@
 		A16390B527F039AA00F7295D /* KeyChainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16390B427F039AA00F7295D /* KeyChainManager.swift */; };
 		A168405827DCC1ED00FB3C8B /* AccountCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A168405727DCC1ED00FB3C8B /* AccountCreationView.swift */; };
 		A168B8F427ECD89F0065B9C8 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A168B8F327ECD89F0065B9C8 /* String+Extension.swift */; };
+		A18C103F27F8ACE00091C0E2 /* ETHAlchemySCRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18C103E27F8ACE00091C0E2 /* ETHAlchemySCRequest.swift */; };
 		A192F28727E61942005DCD77 /* NetworkCaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = A192F28627E61942005DCD77 /* NetworkCaller.swift */; };
 		A1B0D1C927CFB64E005E3E1E /* ERC20TokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B0D1C827CFB64E005E3E1E /* ERC20TokenViewModel.swift */; };
-		A1C1AA2927E99C2C00951807 /* ETHRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C1AA2827E99C2C00951807 /* ETHRequest.swift */; };
+		A1C1AA2927E99C2C00951807 /* ETHAlchemyRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C1AA2827E99C2C00951807 /* ETHAlchemyRequest.swift */; };
 		A1C1AA2B27E99CC400951807 /* ETHResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C1AA2A27E99CC400951807 /* ETHResult.swift */; };
 		A1CB5AC927EB5FE100626833 /* SendRawTransactionResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CB5AC827EB5FE100626833 /* SendRawTransactionResult.swift */; };
 		A1CB5ACC27EB684300626833 /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CB5ACB27EB684300626833 /* Key.swift */; };
@@ -101,6 +103,7 @@
 		A10480DE27C9CE82002078F3 /* MarketPlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketPlaceView.swift; sourceTree = "<group>"; };
 		A1065B6F27F74A8700BDC08B /* ContractABIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractABIManager.swift; sourceTree = "<group>"; };
 		A1065B7227F7581D00BDC08B /* WalletCoreSmartContractView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletCoreSmartContractView.swift; sourceTree = "<group>"; };
+		A1065B7427F7EF7100BDC08B /* GenericSCRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericSCRequest.swift; sourceTree = "<group>"; };
 		A10A4E4227CB93C700CC883F /* Wallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
 		A10EF5CD27D306F900B40114 /* WalletManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletManager.swift; sourceTree = "<group>"; };
 		A113317A27CD09F300D5A173 /* ETHNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ETHNetwork.swift; sourceTree = "<group>"; };
@@ -114,9 +117,10 @@
 		A16390B427F039AA00F7295D /* KeyChainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainManager.swift; sourceTree = "<group>"; };
 		A168405727DCC1ED00FB3C8B /* AccountCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCreationView.swift; sourceTree = "<group>"; };
 		A168B8F327ECD89F0065B9C8 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		A18C103E27F8ACE00091C0E2 /* ETHAlchemySCRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ETHAlchemySCRequest.swift; sourceTree = "<group>"; };
 		A192F28627E61942005DCD77 /* NetworkCaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCaller.swift; sourceTree = "<group>"; };
 		A1B0D1C827CFB64E005E3E1E /* ERC20TokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ERC20TokenViewModel.swift; sourceTree = "<group>"; };
-		A1C1AA2827E99C2C00951807 /* ETHRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ETHRequest.swift; sourceTree = "<group>"; };
+		A1C1AA2827E99C2C00951807 /* ETHAlchemyRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ETHAlchemyRequest.swift; sourceTree = "<group>"; };
 		A1C1AA2A27E99CC400951807 /* ETHResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ETHResult.swift; sourceTree = "<group>"; };
 		A1CB5AC827EB5FE100626833 /* SendRawTransactionResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendRawTransactionResult.swift; sourceTree = "<group>"; };
 		A1CB5ACB27EB684300626833 /* Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
@@ -333,9 +337,11 @@
 		A10480D227C91F25002078F3 /* GatewayContract */ = {
 			isa = PBXGroup;
 			children = (
-				A1C1AA2827E99C2C00951807 /* ETHRequest.swift */,
+				A1C1AA2827E99C2C00951807 /* ETHAlchemyRequest.swift */,
+				A1065B7427F7EF7100BDC08B /* GenericSCRequest.swift */,
 				A1C1AA2A27E99CC400951807 /* ETHResult.swift */,
 				A1CB5AC827EB5FE100626833 /* SendRawTransactionResult.swift */,
+				A18C103E27F8ACE00091C0E2 /* ETHAlchemySCRequest.swift */,
 			);
 			path = GatewayContract;
 			sourceTree = "<group>";
@@ -729,6 +735,7 @@
 				A10480D927C91FCC002078F3 /* TabBarView.swift in Sources */,
 				A12F925627D10738002F2BD4 /* SendView.swift in Sources */,
 				A1D01FAE27D34B5200149E74 /* PriceStatusView.swift in Sources */,
+				A18C103F27F8ACE00091C0E2 /* ETHAlchemySCRequest.swift in Sources */,
 				A1D01FAC27D34B2200149E74 /* HeaderView.swift in Sources */,
 				A1CB5ACC27EB684300626833 /* Key.swift in Sources */,
 				A10480B427C91E9A002078F3 /* NFTWalletApp.swift in Sources */,
@@ -741,12 +748,13 @@
 				A12A54E727DF7F850073EDBD /* View+Extensions.swift in Sources */,
 				A14E7CE927E581DC00040D80 /* WalletCoreManager.swift in Sources */,
 				A1D01FB527D34BB900149E74 /* CryptoCurrencyView.swift in Sources */,
+				A1065B7527F7EF7100BDC08B /* GenericSCRequest.swift in Sources */,
 				A1EEEDF027D0CD4F0075E0C8 /* LottieView.swift in Sources */,
 				A113317B27CD09F300D5A173 /* ETHNetwork.swift in Sources */,
 				A1D01FB027D34B6500149E74 /* ButtonView.swift in Sources */,
 				A1065B7027F74A8700BDC08B /* ContractABIManager.swift in Sources */,
 				A1CB5AC927EB5FE100626833 /* SendRawTransactionResult.swift in Sources */,
-				A1C1AA2927E99C2C00951807 /* ETHRequest.swift in Sources */,
+				A1C1AA2927E99C2C00951807 /* ETHAlchemyRequest.swift in Sources */,
 				A127A68027EDE332005F01EE /* WalletCoreSendView.swift in Sources */,
 				A1D01FBA27D34C5000149E74 /* AccountLoadingView.swift in Sources */,
 				A16390B527F039AA00F7295D /* KeyChainManager.swift in Sources */,

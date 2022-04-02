@@ -60,23 +60,17 @@ final class WalletCoreManager: ObservableObject {
     func sendTransaction(to address: String, completion: @escaping (Bool) -> Void) async {
         do {
             if let wallet = wallet {
-                try await prepareTransactionModel { transactionModel in
-                    let signerInput = EthereumSigningInput.with {
-                        $0.nonce = Data(hexString: transactionModel.nonce)!
-                        $0.chainID = Data(hexString: "04")!
-//                        $0.gasPrice = Data(hexString: transactionModel.gasPrice)! // decimal 3600000000
-//                        $0.gasLimit = Data(hexString: "5208")! // decimal 21000
-                        $0.toAddress = address
-                        $0.privateKey = wallet.getKeyForCoin(coin: .ethereum).data
-                        $0.transaction = EthereumTransaction.with {
-                            $0.contractGeneric = EthereumTransaction.ContractGeneric.with {
-                                $0.data = self.abiManager.callMethodFrom(name: "retrieve")
-                            }
-                        }
-                    }
-                    
-                    self.signTransaction(from: signerInput) {
-                        completion($0)
+                let fromAddress = wallet.getAddressForCoin(coin: .ethereum) // Optional field
+                let toAddress = address
+                let data = self.abiManager.callMethodFrom(name: "retrieve")
+                
+                let scRequest = GenericSCRequest(from: fromAddress,
+                                                 to: toAddress,
+                                                 data: "0x\(data.hexString)")
+                
+                Task {
+                    try await NetworkCaller.shared.call(with: scRequest) {
+                        print("Encoded result: ", $0)
                     }
                 }
             }

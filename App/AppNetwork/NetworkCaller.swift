@@ -11,13 +11,48 @@ struct NetworkCaller {
     
     static let shared = NetworkCaller()
     
+    func call(with scRequest: GenericSCRequest, completion: @escaping (String) -> Void) async throws {
+        if let url = URL(string: Key.alchemyKey) {
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+            let smartContractParam = SmartContractParam.init(to: scRequest.to, data: scRequest.data)
+            let tag = "latest"
+            let params: [AnyEncodable] = [.init(smartContractParam), .init(tag)]
+            
+            let requestNetworkEntity = ETHAlchemySmartContractRequest(
+                id: 1,
+                jsonrpc: "2.0",
+                method: "eth_call",
+                params: params
+            )
+
+            let httpBody = try JSONEncoder().encode(requestNetworkEntity)
+            request.httpBody = httpBody
+
+            URLSession.shared.dataTask(with: request) { data, _, error in
+                if let data = data {
+                    do {
+                        let result = try JSONDecoder().decode(SendRawTransactionResult.self, from: data)
+                        completion(result.result)
+                    } catch {
+                        assertionFailure(error.localizedDescription)
+                        return
+                    }
+                }
+            }
+            .resume()
+        }
+    }
+    
     func sendTransaction(with encodedParams: String, completion: @escaping (String) -> Void) async throws {
         if let url = URL(string: Key.alchemyKey) {
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             
-            let requestNetworkEntity = ETHRequest(
+            let requestNetworkEntity = ETHAlchemyRequest(
                 jsonrpc: "2.0",
                 method: "eth_sendRawTransaction",
                 params: [encodedParams],
@@ -47,7 +82,7 @@ struct NetworkCaller {
             request.httpMethod = "POST"
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             
-            let requestNetworkEntity = ETHRequest(
+            let requestNetworkEntity = ETHAlchemyRequest(
                 jsonrpc: "2.0",
                 method: "eth_gasPrice",
                 params: [],
@@ -77,7 +112,7 @@ struct NetworkCaller {
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             
-            let requestNetworkEntity = ETHRequest(
+            let requestNetworkEntity = ETHAlchemyRequest(
                 jsonrpc: "2.0",
                 method: "eth_getTransactionCount",
                 params: ["0x051ab25Ea6f9593c647D639E04b562A6C58c577E", "latest"],
@@ -107,7 +142,7 @@ struct NetworkCaller {
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             
-            let requestNetworkEntity = ETHRequest(
+            let requestNetworkEntity = ETHAlchemyRequest(
                 jsonrpc: "2.0",
                 method: "eth_getBalance",
                 params: [walletAddress, "latest"],
