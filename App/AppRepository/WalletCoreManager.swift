@@ -14,6 +14,9 @@ final class WalletCoreManager: ObservableObject {
     @Published var encodedSignTransaction: String?
     @Published var sentTransaction: String?
     
+    @Published var boxValue: String?
+    let abiManager = ContractABIManager.shared
+    
     func createWallet(from mnemonic: String? = nil,
                       passphrase: String = "",
                       completion: (String) -> Void
@@ -54,33 +57,32 @@ final class WalletCoreManager: ObservableObject {
         }
     }
     
-    func prepareTransactionModel(completion: @escaping (ETHTransactionModel) -> Void) async throws {
-        if let _ = wallet {
-            var nonce: String?
-            var gasPrice: String?
-            
-            let dispatchGroup = DispatchGroup()
-            dispatchGroup.enter()
-            try await NetworkCaller.shared.getTransactionCount {
-                nonce = $0
-                dispatchGroup.leave()
-            }
-            
-            dispatchGroup.enter()
-            try await  NetworkCaller.shared.fetchGasPrice {
-                gasPrice = $0
-                dispatchGroup.leave()
-            }
-            
-            dispatchGroup.notify(queue: .main) {
-                guard let nonce = nonce, let gasPrice = gasPrice else {
-                    assertionFailure("Unexpectedly found nil")
-                    return
+    func sendTransaction(to address: String, completion: @escaping (Bool) -> Void) async {
+        do {
+            if let wallet = wallet {
+                try await prepareTransactionModel { transactionModel in
+                    let signerInput = EthereumSigningInput.with {
+                        $0.nonce = Data(hexString: transactionModel.nonce)!
+                        $0.chainID = Data(hexString: "04")!
+//                        $0.gasPrice = Data(hexString: transactionModel.gasPrice)! // decimal 3600000000
+//                        $0.gasLimit = Data(hexString: "5208")! // decimal 21000
+                        $0.toAddress = address
+                        $0.privateKey = wallet.getKeyForCoin(coin: .ethereum).data
+                        $0.transaction = EthereumTransaction.with {
+                            $0.contractGeneric = EthereumTransaction.ContractGeneric.with {
+                                $0.data = self.abiManager.callMethodFrom(name: "retrieve")
+                            }
+                        }
+                    }
+                    
+                    self.signTransaction(from: signerInput) {
+                        completion($0)
+                    }
                 }
-                completion(ETHTransactionModel(nonce: nonce, gasPrice: gasPrice))
             }
-        } else {
-            throw WalletCoreTransactionError.walletNotFound
+        } catch {
+            assertionFailure(error.localizedDescription)
+            return
         }
     }
     
@@ -114,6 +116,38 @@ final class WalletCoreManager: ObservableObject {
         } catch {
             assertionFailure(error.localizedDescription)
             return
+        }
+    }
+}
+
+private extension WalletCoreManager {
+    func prepareTransactionModel(completion: @escaping (ETHTransactionModel) -> Void) async throws {
+        if let _ = wallet {
+            var nonce: String?
+            var gasPrice: String?
+            
+            let dispatchGroup = DispatchGroup()
+            dispatchGroup.enter()
+            try await NetworkCaller.shared.getTransactionCount {
+                nonce = $0
+                dispatchGroup.leave()
+            }
+            
+            dispatchGroup.enter()
+            try await  NetworkCaller.shared.fetchGasPrice {
+                gasPrice = $0
+                dispatchGroup.leave()
+            }
+            
+            dispatchGroup.notify(queue: .main) {
+                guard let nonce = nonce, let gasPrice = gasPrice else {
+                    assertionFailure("Unexpectedly found nil")
+                    return
+                }
+                completion(ETHTransactionModel(nonce: nonce, gasPrice: gasPrice))
+            }
+        } else {
+            throw WalletCoreTransactionError.walletNotFound
         }
     }
     

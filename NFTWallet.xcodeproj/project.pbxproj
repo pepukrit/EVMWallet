@@ -22,6 +22,8 @@
 		A10480D927C91FCC002078F3 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10480D827C91FCC002078F3 /* TabBarView.swift */; };
 		A10480DC27C92269002078F3 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10480DB27C92269002078F3 /* AccountView.swift */; };
 		A10480DF27C9CE82002078F3 /* MarketPlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10480DE27C9CE82002078F3 /* MarketPlaceView.swift */; };
+		A1065B7027F74A8700BDC08B /* ContractABIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1065B6F27F74A8700BDC08B /* ContractABIManager.swift */; };
+		A1065B7327F7581D00BDC08B /* WalletCoreSmartContractView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1065B7227F7581D00BDC08B /* WalletCoreSmartContractView.swift */; };
 		A10A4E4127CB937B00CC883F /* web3swift in Frameworks */ = {isa = PBXBuildFile; productRef = A10A4E4027CB937B00CC883F /* web3swift */; };
 		A10A4E4327CB93C700CC883F /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10A4E4227CB93C700CC883F /* Wallet.swift */; };
 		A10EF5CE27D306F900B40114 /* WalletManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10EF5CD27D306F900B40114 /* WalletManager.swift */; };
@@ -97,6 +99,8 @@
 		A10480D827C91FCC002078F3 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		A10480DB27C92269002078F3 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		A10480DE27C9CE82002078F3 /* MarketPlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketPlaceView.swift; sourceTree = "<group>"; };
+		A1065B6F27F74A8700BDC08B /* ContractABIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractABIManager.swift; sourceTree = "<group>"; };
+		A1065B7227F7581D00BDC08B /* WalletCoreSmartContractView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletCoreSmartContractView.swift; sourceTree = "<group>"; };
 		A10A4E4227CB93C700CC883F /* Wallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
 		A10EF5CD27D306F900B40114 /* WalletManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletManager.swift; sourceTree = "<group>"; };
 		A113317A27CD09F300D5A173 /* ETHNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ETHNetwork.swift; sourceTree = "<group>"; };
@@ -257,6 +261,7 @@
 		A10480C927C91ED3002078F3 /* AppPresentation */ = {
 			isa = PBXGroup;
 			children = (
+				A1065B7127F7580D00BDC08B /* WalletCoreSmartContract */,
 				A14E7CE527E581B600040D80 /* WalletCoreAccount */,
 				A10480D427C91F4A002078F3 /* Main */,
 				A10480DA27C92254002078F3 /* Account */,
@@ -304,6 +309,7 @@
 				A10EF5CD27D306F900B40114 /* WalletManager.swift */,
 				A14E7CE827E581DC00040D80 /* WalletCoreManager.swift */,
 				A16390B427F039AA00F7295D /* KeyChainManager.swift */,
+				A1065B6F27F74A8700BDC08B /* ContractABIManager.swift */,
 			);
 			path = AppRepository;
 			sourceTree = "<group>";
@@ -365,6 +371,14 @@
 				A10480DE27C9CE82002078F3 /* MarketPlaceView.swift */,
 			);
 			path = MarketPlace;
+			sourceTree = "<group>";
+		};
+		A1065B7127F7580D00BDC08B /* WalletCoreSmartContract */ = {
+			isa = PBXGroup;
+			children = (
+				A1065B7227F7581D00BDC08B /* WalletCoreSmartContractView.swift */,
+			);
+			path = WalletCoreSmartContract;
 			sourceTree = "<group>";
 		};
 		A12A54E827DF86A10073EDBD /* ContractABI */ = {
@@ -710,6 +724,7 @@
 				A1D01FB827D34BF900149E74 /* AccountDetailView.swift in Sources */,
 				A10480D627C91F59002078F3 /* MainApp.swift in Sources */,
 				A192F28727E61942005DCD77 /* NetworkCaller.swift in Sources */,
+				A1065B7327F7581D00BDC08B /* WalletCoreSmartContractView.swift in Sources */,
 				A12A54EA27DF86AE0073EDBD /* ContractABI.swift in Sources */,
 				A10480D927C91FCC002078F3 /* TabBarView.swift in Sources */,
 				A12F925627D10738002F2BD4 /* SendView.swift in Sources */,
@@ -729,6 +744,7 @@
 				A1EEEDF027D0CD4F0075E0C8 /* LottieView.swift in Sources */,
 				A113317B27CD09F300D5A173 /* ETHNetwork.swift in Sources */,
 				A1D01FB027D34B6500149E74 /* ButtonView.swift in Sources */,
+				A1065B7027F74A8700BDC08B /* ContractABIManager.swift in Sources */,
 				A1CB5AC927EB5FE100626833 /* SendRawTransactionResult.swift in Sources */,
 				A1C1AA2927E99C2C00951807 /* ETHRequest.swift in Sources */,
 				A127A68027EDE332005F01EE /* WalletCoreSendView.swift in Sources */,

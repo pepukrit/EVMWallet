@@ -13,6 +13,7 @@ struct NFTWalletApp: App {
         WindowGroup {
             TabBarView()
                 .environmentObject(WalletManager())
+                .environmentObject(WalletCoreManager())
         }
     }
 }

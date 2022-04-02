@@ -28,16 +28,21 @@ struct TabBarView: View {
             
             MarketPlaceView()
                 .tabItem {
-                    Label("Smart Contract", systemImage: "newspaper.fill")
+                    Label("Web3 SC", systemImage: "newspaper.fill")
                 }
                 .tag(2)
             
+            WalletCoreSmartContractView()
+                .tabItem {
+                    Label("WalletCore SC", systemImage: "newspaper.fill")
+                }
+                .tag(3)
+            
             WalletCoreAccount()
-                .environmentObject(WalletCoreManager())
                 .tabItem {
                     Label("WalletCore Account", systemImage: "mail.stack.fill")
                 }
-                .tag(3)
+                .tag(4)
         }
         .accentColor(.white)
         .preferredColorScheme(.dark)
