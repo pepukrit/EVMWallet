@@ -17,9 +17,21 @@ extension String {
 }
 
 extension Double {
-    init(hexString: String) {
+    init(hexStringWithEther: String) {
         let weiUnit: Double = 1000000000000000000
-        let hexFloat = Float(hexString) ?? 0
+        let hexFloat = Float(hexStringWithEther) ?? 0
         self = Double(hexFloat) / weiUnit
+    }
+    
+    init(hexString: String) {
+        let hexFloat = Float(hexString) ?? 0
+        self = Double(hexFloat)
+    }
+}
+
+extension Int {
+    init(hexString: String) {
+        let hexFloat = Float(hexString) ?? 0
+        self = Int(hexFloat)
     }
 }

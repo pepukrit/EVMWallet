@@ -10,7 +10,7 @@ import SwiftUI
 struct WalletCoreSmartContractView: View {
     @EnvironmentObject var walletCoreManager: WalletCoreManager
     
-    @State var boxValue: String = ""
+    @State var boxValue: String = "0"
     var body: some View {
         ZStack {
             Color.primaryBgColor.ignoresSafeArea()
@@ -30,17 +30,9 @@ struct WalletCoreSmartContractView: View {
                 Button(action: {
                     Task {
                         await walletCoreManager.sendTransaction(to: ContractABI.address, completion: {
-                            print($0)
+                            boxValue = "\($0)"
                         })
                     }
-//                    DispatchQueue.global(qos: .utility).async {
-//                        do {
-//                            let boxValue = try wallet.readSmartContract()
-//                            self.boxValue = boxValue
-//                        } catch {
-//                            assertionFailure(error.localizedDescription)
-//                        }
-//                    }
                 }) {
                     Text("Store")
                         .foregroundColor(.white)

@@ -11,10 +11,11 @@ import WalletCore
 final class WalletCoreManager: ObservableObject {
     
     @Published var wallet: HDWallet?
+    
+    //TODO: Clean up these local variables
     @Published var encodedSignTransaction: String?
     @Published var sentTransaction: String?
     
-    @Published var boxValue: String?
     let abiManager = ContractABIManager.shared
     
     func createWallet(from mnemonic: String? = nil,
@@ -49,7 +50,7 @@ final class WalletCoreManager: ObservableObject {
     func retrieveETHBalance(completion: @escaping (Double) -> Void) async {
         do {
             try await NetworkCaller.shared.getETHBalance(from: wallet?.getAddressForCoin(coin: .ethereum)) { accountBalanceInHexString in
-                let availableEther = Double(hexString: accountBalanceInHexString)
+                let availableEther = Double(hexStringWithEther: accountBalanceInHexString)
                 completion(availableEther)
             }
         } catch {
@@ -57,7 +58,7 @@ final class WalletCoreManager: ObservableObject {
         }
     }
     
-    func sendTransaction(to address: String, completion: @escaping (Bool) -> Void) async {
+    func sendTransaction(to address: String, completion: @escaping (Int) -> Void) async {
         do {
             if let wallet = wallet {
                 let fromAddress = wallet.getAddressForCoin(coin: .ethereum) // Optional field
@@ -70,7 +71,8 @@ final class WalletCoreManager: ObservableObject {
                 
                 Task {
                     try await NetworkCaller.shared.call(with: scRequest) {
-                        print("Encoded result: ", $0)
+                        let boxValueInInt = Int(hexString: $0)
+                        completion(boxValueInInt)
                     }
                 }
             }
