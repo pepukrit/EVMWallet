@@ -59,26 +59,21 @@ final class WalletCoreManager: ObservableObject {
     }
     
     func sendTransaction(to address: String, completion: @escaping (Int) -> Void) async {
-        do {
-            if let wallet = wallet {
-                let fromAddress = wallet.getAddressForCoin(coin: .ethereum) // Optional field
-                let toAddress = address
-                let data = self.abiManager.callMethodFrom(name: "retrieve")
-                
-                let scRequest = GenericSCRequest(from: fromAddress,
-                                                 to: toAddress,
-                                                 data: "0x\(data.hexString)")
-                
-                Task {
-                    try await NetworkCaller.shared.call(with: scRequest) {
-                        let boxValueInInt = Int(hexString: $0)
-                        completion(boxValueInInt)
-                    }
+        if let wallet = wallet {
+            let fromAddress = wallet.getAddressForCoin(coin: .ethereum) // Optional field
+            let toAddress = address
+            let data = self.abiManager.callMethodFrom(name: "retrieve")
+            
+            let scRequest = GenericSCRequest(from: fromAddress,
+                                             to: toAddress,
+                                             data: "0x\(data.hexString)")
+            
+            Task {
+                try await NetworkCaller.shared.call(with: scRequest) {
+                    let boxValueInInt = Int(hexString: $0)
+                    completion(boxValueInInt)
                 }
             }
-        } catch {
-            assertionFailure(error.localizedDescription)
-            return
         }
     }
     
