@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AccountCreationView: View {
-    @EnvironmentObject var wallet: WalletManager
+    @EnvironmentObject var wallet: Web3SwiftWalletManager
     
     @State var password: String = ""
     @State var confirmPassword: String = ""
@@ -112,6 +112,6 @@ private extension AccountCreationView {
 struct AccountCreationView_Previews: PreviewProvider {
     static var previews: some View {
         AccountCreationView()
-            .environmentObject(WalletManager())
+            .environmentObject(Web3SwiftWalletManager())
     }
 }

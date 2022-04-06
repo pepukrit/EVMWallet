@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AccountDetailView: View {
-    @EnvironmentObject var wallet: WalletManager
+    @EnvironmentObject var wallet: Web3SwiftWalletManager
     
     var body: some View {
         VStack {
@@ -47,7 +47,7 @@ struct AccountDetailView: View {
     }
 }
 
-private extension WalletManager.WalletState {
+private extension Web3SwiftWalletManager.WalletState {
     var statusText: String {
         switch self {
         case .creatingWallet: return "The system is preparing your wallet..."

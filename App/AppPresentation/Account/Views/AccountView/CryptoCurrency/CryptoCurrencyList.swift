@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CryptocurrencyList: View {
-    @EnvironmentObject var wallet: WalletManager
+    @EnvironmentObject var wallet: Web3SwiftWalletManager
     
     init() {
         UITableView.appearance().backgroundColor = .clear

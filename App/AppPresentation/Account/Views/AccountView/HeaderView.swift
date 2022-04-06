@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HeaderView: View {
-    @EnvironmentObject var wallet: WalletManager
+    @EnvironmentObject var wallet: Web3SwiftWalletManager
     
     var body: some View {
         HStack {

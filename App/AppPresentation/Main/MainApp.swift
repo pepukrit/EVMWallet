@@ -11,8 +11,10 @@ import SwiftUI
 struct NFTWalletApp: App {
     var body: some Scene {
         WindowGroup {
-            TabBarView()
+//            TabBarView()
+            IntroductionView()
                 .environmentObject(WalletManager())
+                .environmentObject(Web3SwiftWalletManager())
                 .environmentObject(WalletCoreManager())
         }
     }

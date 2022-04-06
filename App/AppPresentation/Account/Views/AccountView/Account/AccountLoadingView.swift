@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AccountLoadingView: View {
-    @EnvironmentObject var wallet: WalletManager
+    @EnvironmentObject var wallet: Web3SwiftWalletManager
     
     @State var shouldNavigate: Bool = false
     
@@ -46,6 +46,6 @@ struct AccountLoadingView: View {
 struct AccountLoadingView_Previews: PreviewProvider {
     static var previews: some View {
         AccountLoadingView()
-            .environmentObject(WalletManager())
+            .environmentObject(Web3SwiftWalletManager())
     }
 }

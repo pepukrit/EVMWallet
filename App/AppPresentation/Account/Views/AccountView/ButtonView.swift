@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ButtonView: View {
-    @EnvironmentObject var wallet: WalletManager
+    @EnvironmentObject var wallet: Web3SwiftWalletManager
     @State var isSendPresented: Bool = false
     
     var body: some View {
