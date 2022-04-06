@@ -75,21 +75,8 @@ struct AccountCreationView: View {
             
             Spacer()
         }
-        .padding()
-        .padding(.top, 24)
-        .frame(maxWidth: .infinity)
-        .background(Color.primaryBgColor)
-        .navigationTitle(Text("Wallet Creation"))
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: Button(action: {
-            walletManager.walletManagerType = nil
-            presentationMode.wrappedValue.dismiss()
-        }) {
-            Image(systemName: "chevron.backward")
-        })
-        .font(weight: .regular)
-        .foregroundColor(.white)
+        .setupMainView()
+        .setupNavigationView(with: walletManager, presentationMode: presentationMode)
     }
 }
 
@@ -133,6 +120,41 @@ private extension AccountCreationView {
                 print("Address: \($0)")
             }
         }
+    }
+}
+
+private extension View {
+    func setupNavigationView<Content: View>(with toolbarItem: Content) -> some View {
+        self.navigationTitle(Text("Wallet Creation"))
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden(true)
+            .toolbar { toolbarItem }
+    }
+    
+    func setupNavigationView(with walletManager: WalletManager,
+                             presentationMode: Binding<PresentationMode>) -> some View {
+        self.navigationTitle(Text("Wallet Creation"))
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden(true)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        walletManager.walletManagerType = nil
+                        presentationMode.wrappedValue.dismiss()
+                    }) {
+                        Image(systemName: "chevron.backward")
+                    }
+                }
+            }
+    }
+    
+    func setupMainView() -> some View {
+        self.padding()
+            .padding(.top, 24)
+            .frame(maxWidth: .infinity)
+            .background(Color.primaryBgColor)
+            .font(weight: .regular)
+            .foregroundColor(.white)
     }
 }
 
