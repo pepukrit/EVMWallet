@@ -20,32 +20,15 @@ struct TabBarView: View {
     
     var body: some View {
         TabView(selection: $tabSelection) {
-            AccountView()
+            AccountDetailView()
                 .tabItem {
-                    Label("Web3 Account", systemImage: "mail.stack")
+                    Label("Account", systemImage: "mail.stack")
                 }
                 .tag(1)
-            
-            MarketPlaceView()
-                .tabItem {
-                    Label("Web3 SC", systemImage: "newspaper.fill")
-                }
-                .tag(2)
-            
-            WalletCoreSmartContractView()
-                .tabItem {
-                    Label("WalletCore SC", systemImage: "newspaper.fill")
-                }
-                .tag(3)
-            
-            WalletCoreAccount()
-                .tabItem {
-                    Label("WalletCore Account", systemImage: "mail.stack.fill")
-                }
-                .tag(4)
         }
         .accentColor(.white)
         .preferredColorScheme(.dark)
+        .navigationBarBackButtonHidden(true)
     }
 }
 

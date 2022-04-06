@@ -36,7 +36,7 @@ final class Web3SwiftWalletManager: ObservableObject {
         completion()
     }
     
-    func retrieveBalance(with network: ETHNetwork) {
+    func retrieveBalance(with network: ETHNetwork, completion: @escaping () -> Void) {
         DispatchQueue.main.async {
             self.state = .fetchingBalance
         }
@@ -51,6 +51,7 @@ final class Web3SwiftWalletManager: ObservableObject {
         DispatchQueue.main.async {
             self.accounts = [eth, bnb, ada, avax, link].compactMap { $0 }
             self.state = .idle
+            completion()
         }
     }
     

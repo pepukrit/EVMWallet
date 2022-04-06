@@ -9,6 +9,7 @@ import Lottie
 import SwiftUI
 import WalletCore
 
+//TODO: Delete this view
 struct AccountView: View {
     @EnvironmentObject var wallet: Web3SwiftWalletManager
     

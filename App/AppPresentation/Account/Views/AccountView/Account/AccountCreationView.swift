@@ -11,9 +11,12 @@ struct AccountCreationView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var walletManager: WalletManager
     
+    //TODO: Make a viewState model
     @State var password: String = ""
     @State var confirmPassword: String = ""
     @State var shouldShowAlertDialog: Bool = false
+    
+    @State var shouldNavigate: Bool = false
     
     var body: some View {
         VStack(spacing: 32) {
@@ -74,6 +77,12 @@ struct AccountCreationView: View {
             .font(.system(size: 14, weight: .bold, design: .monospaced))
             
             Spacer()
+            
+            NavigationLink(isActive: $shouldNavigate, destination: {
+                TabBarView()
+            }) {
+                EmptyView()
+            }
         }
         .setupMainView()
         .setupNavigationView(with: walletManager, presentationMode: presentationMode)
@@ -106,11 +115,15 @@ private extension AccountCreationView {
             return
         }
         if walletManagerType.isWeb3SwiftWallet {
-            walletManager.web3SwiftWallet?.createWallet(
-                with: .BIP39(mnemonic: mnemonic),
-                passphrase: password
-            ) {
-                walletManager.web3SwiftWallet?.retrieveBalance(with: .rinkeby)
+            DispatchQueue.global(qos: .utility).async {
+                walletManager.web3SwiftWallet?.createWallet(
+                    with: .BIP39(mnemonic: mnemonic),
+                    passphrase: password
+                ) {
+                    walletManager.web3SwiftWallet?.retrieveBalance(with: .rinkeby) {
+                        shouldNavigate = true
+                    }
+                }
             }
         } else {
             walletManager.walletCoreSwiftWallet?.createWallet(
@@ -118,6 +131,7 @@ private extension AccountCreationView {
                 passphrase: passphrase
             ) {
                 print("Address: \($0)")
+                shouldNavigate = true
             }
         }
     }
