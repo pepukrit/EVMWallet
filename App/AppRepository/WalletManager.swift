@@ -37,6 +37,21 @@ final class WalletManager: ObservableObject {
     }
 }
 
+extension WalletManager {
+    var address: String {
+        guard let walletManagerType = walletManagerType else {
+            assertionFailure("Unexpectedly found nil")
+            return "Unidentified"
+        }
+        switch walletManagerType {
+        case .web3swift(let wallet):
+            return wallet.wallet?.ethAddress ?? "Unidentified"
+        case .walletCore(let wallet):
+            return wallet.retrieveAddress(coin: .ethereum)
+        }
+    }
+}
+
 enum WalletManagerType {
     case web3swift(Web3SwiftWalletManager)
     case walletCore(WalletCoreManager)

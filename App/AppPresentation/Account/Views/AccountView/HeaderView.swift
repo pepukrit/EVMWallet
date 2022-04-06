@@ -1,14 +1,14 @@
 //
-//  HeaderVew.swift
+//  HeaderViewV2.swift
 //  NFTWallet (iOS)
 //
-//  Created by Ukrit Wattanakulchart on 5/3/2565 BE.
+//  Created by Ukrit Wattanakulchart on 6/4/2565 BE.
 //
 
 import SwiftUI
 
 struct HeaderView: View {
-    @EnvironmentObject var wallet: Web3SwiftWalletManager
+    @EnvironmentObject var wallet: WalletManager
     
     var body: some View {
         HStack {
@@ -19,7 +19,7 @@ struct HeaderView: View {
             
             VStack {
                 Text("Account")
-                Text(wallet.wallet?.ethAddress ?? "Unidentified")
+                Text(wallet.address)
                     .lineLimit(1)
                     .truncationMode(.middle)
             }
@@ -33,5 +33,12 @@ struct HeaderView: View {
         }
         .foregroundColor(.white)
         .padding()
+    }
+}
+
+struct HeaderViewV2_Previews: PreviewProvider {
+    static var previews: some View {
+        HeaderView()
+            .environmentObject(WalletManager())
     }
 }

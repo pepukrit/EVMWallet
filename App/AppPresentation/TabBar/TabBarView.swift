@@ -20,7 +20,7 @@ struct TabBarView: View {
     
     var body: some View {
         TabView(selection: $tabSelection) {
-            AccountDetailView()
+            AccountDetailViewV2()
                 .tabItem {
                     Label("Account", systemImage: "mail.stack")
                 }
