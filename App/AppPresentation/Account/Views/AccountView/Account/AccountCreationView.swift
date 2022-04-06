@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct AccountCreationView: View {
-    @EnvironmentObject var wallet: Web3SwiftWalletManager
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @EnvironmentObject var walletManager: WalletManager
     
     @State var password: String = ""
     @State var confirmPassword: String = ""
@@ -40,14 +41,8 @@ struct AccountCreationView: View {
             
             Button(action: {
                 if validatePassphrase(passphrase1: password, passphrase2: confirmPassword) {
-                    DispatchQueue.global(qos: .utility).async {
-                        wallet.createWallet(
-                            // This is a test wallet feel free to use it
-                            with: .BIP39(mnemonic: "broom switch check angry army volume sugar crane plastic asset fantasy three"),
-                            passphrase: password
-                        ) {
-                            wallet.retrieveBalance(with: .rinkeby)
-                        }
+                    Task {
+                        createWallet(passphrase: password)
                     }
                 } else {
                     shouldShowAlertDialog = true
@@ -82,12 +77,19 @@ struct AccountCreationView: View {
         }
         .padding()
         .padding(.top, 24)
-        .font(.system(size: 16, weight: .regular, design: .monospaced))
         .frame(maxWidth: .infinity)
-        .foregroundColor(.white)
         .background(Color.primaryBgColor)
-        .navigationBarTitleDisplayMode(.inline)
         .navigationTitle(Text("Wallet Creation"))
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: Button(action: {
+            walletManager.walletManagerType = nil
+            presentationMode.wrappedValue.dismiss()
+        }) {
+            Image(systemName: "chevron.backward")
+        })
+        .font(weight: .regular)
+        .foregroundColor(.white)
     }
 }
 
@@ -105,6 +107,31 @@ private extension AccountCreationView {
             return .init(title: Text("Passphrase too short"),
                          message: Text("Please make sure you have input at least 8 letters long"),
                          dismissButton: .cancel { shouldShowAlertDialog = false })
+        }
+    }
+    
+    func createWallet(
+        from mnemonic: String = "broom switch check angry army volume sugar crane plastic asset fantasy three", // This is a test wallet feel free to use it
+        passphrase: String
+    ) {
+        guard let walletManagerType = walletManager.walletManagerType else {
+            assertionFailure("Unexpectedly found nil")
+            return
+        }
+        if walletManagerType.isWeb3SwiftWallet {
+            walletManager.web3SwiftWallet?.createWallet(
+                with: .BIP39(mnemonic: mnemonic),
+                passphrase: password
+            ) {
+                walletManager.web3SwiftWallet?.retrieveBalance(with: .rinkeby)
+            }
+        } else {
+            walletManager.walletCoreSwiftWallet?.createWallet(
+                from: mnemonic,
+                passphrase: passphrase
+            ) {
+                print("Address: \($0)")
+            }
         }
     }
 }

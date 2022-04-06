@@ -33,6 +33,7 @@
 		A12A54E727DF7F850073EDBD /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12A54E627DF7F850073EDBD /* View+Extensions.swift */; };
 		A12A54EA27DF86AE0073EDBD /* ContractABI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12A54E927DF86AE0073EDBD /* ContractABI.swift */; };
 		A12F925627D10738002F2BD4 /* SendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12F925527D10738002F2BD4 /* SendView.swift */; };
+		A14468C127FD5A6000C104DE /* WalletManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14468C027FD5A6000C104DE /* WalletManagerProtocol.swift */; };
 		A14E7CE727E581C800040D80 /* WalletCoreAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14E7CE627E581C800040D80 /* WalletCoreAccount.swift */; };
 		A14E7CE927E581DC00040D80 /* WalletCoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14E7CE827E581DC00040D80 /* WalletCoreManager.swift */; };
 		A14F0B6327CE665000CF6388 /* ERC20TokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14F0B6227CE665000CF6388 /* ERC20TokenModel.swift */; };
@@ -113,6 +114,7 @@
 		A12A54E627DF7F850073EDBD /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		A12A54E927DF86AE0073EDBD /* ContractABI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractABI.swift; sourceTree = "<group>"; };
 		A12F925527D10738002F2BD4 /* SendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendView.swift; sourceTree = "<group>"; };
+		A14468C027FD5A6000C104DE /* WalletManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletManagerProtocol.swift; sourceTree = "<group>"; };
 		A14E7CE627E581C800040D80 /* WalletCoreAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletCoreAccount.swift; sourceTree = "<group>"; };
 		A14E7CE827E581DC00040D80 /* WalletCoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletCoreManager.swift; sourceTree = "<group>"; };
 		A14F0B6227CE665000CF6388 /* ERC20TokenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ERC20TokenModel.swift; sourceTree = "<group>"; };
@@ -320,6 +322,7 @@
 				A16390B427F039AA00F7295D /* KeyChainManager.swift */,
 				A1065B6F27F74A8700BDC08B /* ContractABIManager.swift */,
 				A195EE3527FB3F8D00B8D2FE /* WalletManager.swift */,
+				A14468C027FD5A6000C104DE /* WalletManagerProtocol.swift */,
 			);
 			path = AppRepository;
 			sourceTree = "<group>";
@@ -776,6 +779,7 @@
 				A16390B527F039AA00F7295D /* KeyChainManager.swift in Sources */,
 				A10A4E4327CB93C700CC883F /* Wallet.swift in Sources */,
 				A10EF5CE27D306F900B40114 /* Web3SwiftWalletManager.swift in Sources */,
+				A14468C127FD5A6000C104DE /* WalletManagerProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

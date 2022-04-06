@@ -8,6 +8,8 @@
 import Combine
 import WalletCore
 
+extension WalletCoreManager: WalletManagerProtocol {}
+
 final class WalletCoreManager: ObservableObject {
     
     @Published var wallet: HDWallet?

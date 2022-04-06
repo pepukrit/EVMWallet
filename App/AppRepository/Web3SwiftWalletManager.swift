@@ -10,6 +10,8 @@ import SwiftUI
 import web3swift
 import WalletCore
 
+extension Web3SwiftWalletManager: WalletManagerProtocol {}
+
 final class Web3SwiftWalletManager: ObservableObject {
     @Published var wallet: Wallet?
     @Published var accounts: [ERC20TokenModel] = []
