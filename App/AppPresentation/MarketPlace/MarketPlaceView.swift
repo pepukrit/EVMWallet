@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct MarketPlaceView: View {
-    @EnvironmentObject var wallet: WalletManager
+    @EnvironmentObject var wallet: Web3SwiftWalletManager
     
     @State var boxValue: String = "0"
     
@@ -61,6 +61,6 @@ struct MarketPlaceView: View {
 struct MarketPlaceView_Previews: PreviewProvider {
     static var previews: some View {
         MarketPlaceView()
-            .environmentObject(WalletManager())
+            .environmentObject(Web3SwiftWalletManager())
     }
 }

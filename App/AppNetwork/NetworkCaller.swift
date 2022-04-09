@@ -166,4 +166,39 @@ struct NetworkCaller {
             .resume()
         }
     }
+    
+    func getTokenBalances(
+        from walletAddress: String?,
+        completion: @escaping (TokenBalanceResultEntity.TokenBalanceDetailEntity?) -> Void
+    ) async throws {
+        if let url = URL(string: Key.alchemyKey), let walletAddress = walletAddress {
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            
+            let params: [AnyEncodable] = [.init(walletAddress), .init("DEFAULT_TOKENS")]
+            let requestNetworkEntity: ETHAlchemySmartContractRequest = .init(
+                id: 42,
+                jsonrpc: "2.0",
+                method: "alchemy_getTokenBalances",
+                params: params
+            )
+            
+            let httpBody = try JSONEncoder().encode(requestNetworkEntity)
+            request.httpBody = httpBody
+            
+            URLSession.shared.dataTask(with: request) { data, _, error in
+                if let data = data {
+                    do {
+                        let result = try JSONDecoder().decode(TokenBalanceResultEntity.self, from: data)
+                        completion(result.result)
+                    } catch {
+                        assertionFailure(error.localizedDescription)
+                        return
+                    }
+                }
+            }
+            .resume()
+        }
+    }
 }

@@ -9,8 +9,9 @@ import Lottie
 import SwiftUI
 import WalletCore
 
+//TODO: Delete this view
 struct AccountView: View {
-    @EnvironmentObject var wallet: WalletManager
+    @EnvironmentObject var wallet: Web3SwiftWalletManager
     
     var body: some View {
         NavigationView {
@@ -30,6 +31,6 @@ struct AccountView: View {
 struct AccountView_Previews: PreviewProvider {
     static var previews: some View {
         AccountView()
-            .environmentObject(WalletManager())
+            .environmentObject(Web3SwiftWalletManager())
     }
 }

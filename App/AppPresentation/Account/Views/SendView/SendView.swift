@@ -9,7 +9,7 @@ import Lottie
 import SwiftUI
 
 struct SendView: View {
-    @EnvironmentObject var wallet: WalletManager
+    @EnvironmentObject var wallet: Web3SwiftWalletManager
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
     @State fileprivate var alertViewModel: AlertViewModel!
@@ -186,6 +186,6 @@ private extension TransactionResult {
 struct SendView_Previews: PreviewProvider {
     static var previews: some View {
         SendView()
-            .environmentObject(WalletManager())
+            .environmentObject(Web3SwiftWalletManager())
     }
 }

@@ -8,11 +8,15 @@
 import SwiftUI
 
 struct AccountCreationView: View {
-    @EnvironmentObject var wallet: WalletManager
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @EnvironmentObject var walletManager: WalletManager
     
+    //TODO: Make a viewState model
     @State var password: String = ""
     @State var confirmPassword: String = ""
     @State var shouldShowAlertDialog: Bool = false
+    
+    @State var shouldNavigate: Bool = false
     
     var body: some View {
         VStack(spacing: 32) {
@@ -40,14 +44,8 @@ struct AccountCreationView: View {
             
             Button(action: {
                 if validatePassphrase(passphrase1: password, passphrase2: confirmPassword) {
-                    DispatchQueue.global(qos: .utility).async {
-                        wallet.createWallet(
-                            // This is a test wallet feel free to use it
-                            with: .BIP39(mnemonic: "broom switch check angry army volume sugar crane plastic asset fantasy three"),
-                            passphrase: password
-                        ) {
-                            wallet.retrieveBalance(with: .rinkeby)
-                        }
+                    Task {
+                        createWallet(passphrase: password)
                     }
                 } else {
                     shouldShowAlertDialog = true
@@ -79,15 +77,15 @@ struct AccountCreationView: View {
             .font(.system(size: 14, weight: .bold, design: .monospaced))
             
             Spacer()
+            
+            NavigationLink(isActive: $shouldNavigate, destination: {
+                TabBarView()
+            }) {
+                EmptyView()
+            }
         }
-        .padding()
-        .padding(.top, 24)
-        .font(.system(size: 16, weight: .regular, design: .monospaced))
-        .frame(maxWidth: .infinity)
-        .foregroundColor(.white)
-        .background(Color.primaryBgColor)
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle(Text("Wallet Creation"))
+        .setupMainView()
+        .setupNavigationView(with: walletManager, presentationMode: presentationMode)
     }
 }
 
@@ -107,11 +105,76 @@ private extension AccountCreationView {
                          dismissButton: .cancel { shouldShowAlertDialog = false })
         }
     }
+    
+    func createWallet(
+        from mnemonic: String = "broom switch check angry army volume sugar crane plastic asset fantasy three", // This is a test wallet feel free to use it
+        passphrase: String
+    ) {
+        guard let walletManagerType = walletManager.walletManagerType else {
+            assertionFailure("Unexpectedly found nil")
+            return
+        }
+        if walletManagerType.isWeb3SwiftWallet {
+            DispatchQueue.global(qos: .utility).async {
+                walletManager.web3SwiftWallet?.createWallet(
+                    with: .BIP39(mnemonic: mnemonic),
+                    passphrase: password
+                ) {
+                    walletManager.web3SwiftWallet?.retrieveBalance(with: .rinkeby) {
+                        shouldNavigate = true
+                    }
+                }
+            }
+        } else {
+            walletManager.walletCoreSwiftWallet?.createWallet(
+                from: mnemonic,
+                passphrase: passphrase
+            ) {
+                print("Address: \($0)")
+                shouldNavigate = true
+            }
+        }
+    }
+}
+
+private extension View {
+    func setupNavigationView<Content: View>(with toolbarItem: Content) -> some View {
+        self.navigationTitle(Text("Wallet Creation"))
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden(true)
+            .toolbar { toolbarItem }
+    }
+    
+    func setupNavigationView(with walletManager: WalletManager,
+                             presentationMode: Binding<PresentationMode>) -> some View {
+        self.navigationTitle(Text("Wallet Creation"))
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden(true)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        walletManager.walletManagerType = nil
+                        presentationMode.wrappedValue.dismiss()
+                    }) {
+                        Image(systemName: "chevron.backward")
+                    }
+                }
+            }
+    }
+    
+    func setupMainView() -> some View {
+        self.padding()
+            .padding(.top, 24)
+            .frame(maxWidth: .infinity)
+            .background(Color.primaryBgColor)
+            .font(weight: .regular)
+            .foregroundColor(.white)
+    }
 }
 
 struct AccountCreationView_Previews: PreviewProvider {
     static var previews: some View {
         AccountCreationView()
-            .environmentObject(WalletManager())
+            .environmentObject(Web3SwiftWalletManager())
     }
 }
