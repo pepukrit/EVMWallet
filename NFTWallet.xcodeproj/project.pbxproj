@@ -47,6 +47,7 @@
 		A195EE3227FB395000B8D2FE /* IntroductionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A195EE3127FB395000B8D2FE /* IntroductionView.swift */; };
 		A195EE3627FB3F8D00B8D2FE /* WalletManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A195EE3527FB3F8D00B8D2FE /* WalletManager.swift */; };
 		A1B0D1C927CFB64E005E3E1E /* ERC20TokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B0D1C827CFB64E005E3E1E /* ERC20TokenViewModel.swift */; };
+		A1B602D728012DE100EB9365 /* TokenBalanceResultEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B602D628012DE100EB9365 /* TokenBalanceResultEntity.swift */; };
 		A1C1AA2927E99C2C00951807 /* ETHAlchemyRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C1AA2827E99C2C00951807 /* ETHAlchemyRequest.swift */; };
 		A1C1AA2B27E99CC400951807 /* ETHResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C1AA2A27E99CC400951807 /* ETHResult.swift */; };
 		A1CB5AC927EB5FE100626833 /* SendRawTransactionResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CB5AC827EB5FE100626833 /* SendRawTransactionResult.swift */; };
@@ -129,6 +130,7 @@
 		A195EE3127FB395000B8D2FE /* IntroductionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroductionView.swift; sourceTree = "<group>"; };
 		A195EE3527FB3F8D00B8D2FE /* WalletManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletManager.swift; sourceTree = "<group>"; };
 		A1B0D1C827CFB64E005E3E1E /* ERC20TokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ERC20TokenViewModel.swift; sourceTree = "<group>"; };
+		A1B602D628012DE100EB9365 /* TokenBalanceResultEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenBalanceResultEntity.swift; sourceTree = "<group>"; };
 		A1C1AA2827E99C2C00951807 /* ETHAlchemyRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ETHAlchemyRequest.swift; sourceTree = "<group>"; };
 		A1C1AA2A27E99CC400951807 /* ETHResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ETHResult.swift; sourceTree = "<group>"; };
 		A1CB5AC827EB5FE100626833 /* SendRawTransactionResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendRawTransactionResult.swift; sourceTree = "<group>"; };
@@ -348,11 +350,8 @@
 		A10480D227C91F25002078F3 /* GatewayContract */ = {
 			isa = PBXGroup;
 			children = (
-				A1C1AA2827E99C2C00951807 /* ETHAlchemyRequest.swift */,
-				A1065B7427F7EF7100BDC08B /* GenericSCRequest.swift */,
-				A1C1AA2A27E99CC400951807 /* ETHResult.swift */,
-				A1CB5AC827EB5FE100626833 /* SendRawTransactionResult.swift */,
-				A18C103E27F8ACE00091C0E2 /* ETHAlchemySCRequest.swift */,
+				A1B602D428012DBB00EB9365 /* Request */,
+				A1B602D528012DC500EB9365 /* Response */,
 			);
 			path = GatewayContract;
 			sourceTree = "<group>";
@@ -429,6 +428,26 @@
 				A1B0D1C827CFB64E005E3E1E /* ERC20TokenViewModel.swift */,
 			);
 			path = Contract;
+			sourceTree = "<group>";
+		};
+		A1B602D428012DBB00EB9365 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				A1C1AA2827E99C2C00951807 /* ETHAlchemyRequest.swift */,
+				A1065B7427F7EF7100BDC08B /* GenericSCRequest.swift */,
+				A18C103E27F8ACE00091C0E2 /* ETHAlchemySCRequest.swift */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		A1B602D528012DC500EB9365 /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				A1C1AA2A27E99CC400951807 /* ETHResult.swift */,
+				A1CB5AC827EB5FE100626833 /* SendRawTransactionResult.swift */,
+				A1B602D628012DE100EB9365 /* TokenBalanceResultEntity.swift */,
+			);
+			path = Response;
 			sourceTree = "<group>";
 		};
 		A1CB5ACA27EB683000626833 /* Secrets */ = {
@@ -769,6 +788,7 @@
 				A168405827DCC1ED00FB3C8B /* AccountCreationView.swift in Sources */,
 				A12A54E727DF7F850073EDBD /* View+Extensions.swift in Sources */,
 				A14E7CE927E581DC00040D80 /* WalletCoreManager.swift in Sources */,
+				A1B602D728012DE100EB9365 /* TokenBalanceResultEntity.swift in Sources */,
 				A1D01FB527D34BB900149E74 /* CryptoCurrencyView.swift in Sources */,
 				A1065B7527F7EF7100BDC08B /* GenericSCRequest.swift in Sources */,
 				A14468C527FD77BF00C104DE /* HeaderView.swift in Sources */,
