@@ -21,7 +21,10 @@ enum ERC20TokenCoin: CaseIterable {
          ethereum,
          solana,
          avalancheCChain,
-         tether
+         tetherUSD,
+         USDCoin,
+         LUNA,
+         CronosCoin
 }
 
 extension ERC20TokenCoin {
@@ -32,7 +35,10 @@ extension ERC20TokenCoin {
         case .chainlink: return "0x01BE23585060835E02B77ef475b0Cc51aA1e0709"
         case .solana: return "0x41848d32f281383f214c69b7b248dc7c2e0a7374"
         case .avalancheCChain: return "0x93567d6b6553bde2b652fb7f197a229b93813d3f"
-        case .tether: return "0xD92E713d051C37EbB2561803a3b5FBAbc4962431"
+        case .tetherUSD: return "0xdac17f958d2ee523a2206206994597c13d831ec7"
+        case .USDCoin: return "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"
+        case .LUNA: return "0xd2877702675e6cEb975b4A1dFf9fb7BAF4C91ea9"
+        case .CronosCoin: return "0xA0b73E1Ff0B80914AB6fe0444E65848C4C34450b"
         default:
             return ""
         }
@@ -46,7 +52,10 @@ extension ERC20TokenCoin {
         case .ethereum: return "Ethereum"
         case .solana: return "Solana"
         case .avalancheCChain: return "Avalanche"
-        case .tether: return "TestUsdtToken"
+        case .tetherUSD: return "Tether USD"
+        case .USDCoin: return "USD Coin"
+        case .LUNA: return "Wrapped LUNA Token"
+        case .CronosCoin: return "Cronos Coin"
         }
     }
     
@@ -58,7 +67,10 @@ extension ERC20TokenCoin {
         case .ethereum: return "ETH"
         case .solana: return "SOL"
         case .avalancheCChain: return "AVAX"
-        case .tether: return "TUSDT"
+        case .tetherUSD: return "USDT"
+        case .USDCoin: return "USDC"
+        case .LUNA: return "LUNA"
+        case .CronosCoin: return "CRO"
         }
     }
 }

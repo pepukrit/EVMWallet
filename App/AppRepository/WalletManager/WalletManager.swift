@@ -50,6 +50,19 @@ extension WalletManager {
             return wallet.retrieveAddress(coin: .ethereum)
         }
     }
+    
+    var accounts: [ERC20TokenModel] {
+        guard let walletManagerType = walletManagerType else {
+            assertionFailure("Unexpectedly found nil")
+            return []
+        }
+        switch walletManagerType {
+        case .walletCore(let wallet):
+            return wallet.accounts
+        case .web3swift(let wallet):
+            return wallet.accounts
+        }
+    }
 }
 
 enum WalletManagerType {

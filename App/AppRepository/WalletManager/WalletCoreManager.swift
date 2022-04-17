@@ -8,17 +8,38 @@
 import Combine
 import WalletCore
 
-extension WalletCoreManager: WalletManagerProtocol {}
+extension WalletCoreManager: WalletManagerProtocol {
+    func getERC20TokenBalances(address: String) async {
+        do {
+            try await NetworkCaller.shared.getTokenBalances(from: address) { tokenBalancesEntity in
+                guard let tokenBalancesEntity = tokenBalancesEntity else { return }
+                self.accounts = tokenBalancesEntity.compactMap {
+                    //TODO: Should map from network entity to domain entity first before doing a logic !!
+                    self.walletMapper.mapERC20TokenAddress(from: $0.contractAddress!, balance: $0.tokenBalance!)
+                }
+            }
+        } catch {
+            assertionFailure(error.localizedDescription)
+            return
+        }
+    }
+}
 
 final class WalletCoreManager: ObservableObject {
     
     @Published var wallet: HDWallet?
     
     //TODO: Clean up these local variables
+    @Published var accounts: [ERC20TokenModel] = []
     @Published var encodedSignTransaction: String?
     @Published var sentTransaction: String?
     
     let abiManager = ContractABIManager.shared
+    let walletMapper: WalletMapper
+    
+    init() {
+        walletMapper = WalletMapperImplementation()
+    }
     
     func createWallet(from mnemonic: String? = nil,
                       passphrase: String = "",

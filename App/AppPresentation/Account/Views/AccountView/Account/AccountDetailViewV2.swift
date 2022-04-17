@@ -28,7 +28,13 @@ struct AccountDetailViewV2: View {
                 )
             )
             
-            CryptocurrencyList()
+            CryptocurrencyListV2()
+                .task {
+                    //TODO: WalletManagerType should be a generic one to call getTokenBalances function
+                    if wallet.walletManagerType?.isWalletCoreWallet ?? false {
+                        await wallet.walletCoreSwiftWallet?.getERC20TokenBalances(address: wallet.address)
+                    }
+                }
             
             Spacer()
         }

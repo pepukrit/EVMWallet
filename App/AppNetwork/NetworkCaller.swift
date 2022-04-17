@@ -169,7 +169,7 @@ struct NetworkCaller {
     
     func getTokenBalances(
         from walletAddress: String?,
-        completion: @escaping (TokenBalanceResultEntity.TokenBalanceDetailEntity?) -> Void
+        completion: @escaping ([TokenBalanceResultEntity.TokenBalanceDetailEntity.TokenBalance]?) -> Void
     ) async throws {
         if let url = URL(string: Key.alchemyKey), let walletAddress = walletAddress {
             var request = URLRequest(url: url)
@@ -187,11 +187,13 @@ struct NetworkCaller {
             let httpBody = try JSONEncoder().encode(requestNetworkEntity)
             request.httpBody = httpBody
             
+            //TODO: Handle error case
             URLSession.shared.dataTask(with: request) { data, _, error in
                 if let data = data {
                     do {
                         let result = try JSONDecoder().decode(TokenBalanceResultEntity.self, from: data)
-                        completion(result.result)
+                        let tokenBalancesEntity = result.result?.tokenBalances
+                        completion(tokenBalancesEntity)
                     } catch {
                         assertionFailure(error.localizedDescription)
                         return

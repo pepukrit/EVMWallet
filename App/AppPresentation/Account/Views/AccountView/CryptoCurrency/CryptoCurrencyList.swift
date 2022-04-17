@@ -25,21 +25,20 @@ struct CryptocurrencyList: View {
     }
 }
 
-//TODO: see https://docs.alchemy.com/alchemy/enhanced-apis/token-api how to get token balances
-//struct CryptocurrencyListV2: View {
-//    @EnvironmentObject var wallet: WalletManager
-//
-//    init() {
-//        UITableView.appearance().backgroundColor = .clear
-//        UITableViewCell.appearance().backgroundColor = .clear
-//    }
-//
-//    var body: some View {
-//        List {
-//            ForEach(wallet.accounts) {
-//                CryptocurrencyView(viewModel: .init(from: $0))
-//                    .listRowBackground(Color.primaryBgColor)
-//            }
-//        }
-//    }
-//}
+struct CryptocurrencyListV2: View {
+    @EnvironmentObject var wallet: WalletManager
+
+    init() {
+        UITableView.appearance().backgroundColor = .clear
+        UITableViewCell.appearance().backgroundColor = .clear
+    }
+
+    var body: some View {
+        List {
+            ForEach(wallet.accounts) {
+                CryptocurrencyView(viewModel: .init(from: $0))
+                    .listRowBackground(Color.primaryBgColor)
+            }
+        }
+    }
+}

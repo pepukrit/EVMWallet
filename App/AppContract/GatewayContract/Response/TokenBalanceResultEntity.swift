@@ -13,7 +13,18 @@ struct TokenBalanceResultEntity: Codable {
     let result: TokenBalanceDetailEntity?
     
     struct TokenBalanceDetailEntity: Codable {
-        let contractAddress: String?
-        let tokenBalance: String?
+        let address: String?
+        let tokenBalances: [TokenBalance]
+        
+        struct TokenBalance: Codable {
+            let contractAddress: String?
+            let tokenBalance: String?
+            let error: TokenBalanceError?
+            
+            struct TokenBalanceError: Codable {
+                let code: Int?
+                let message: String?
+            }
+        }
     }
 }
