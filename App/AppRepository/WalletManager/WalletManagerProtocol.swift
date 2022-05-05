@@ -6,5 +6,5 @@
 //
 
 protocol WalletManagerProtocol {
-    func getERC20TokenBalances(address: String) async
+    func getERC20TokenBalances(address: String, contractAddresses: [String]) async
 }

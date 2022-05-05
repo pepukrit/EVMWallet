@@ -20,6 +20,10 @@ struct AnyEncodable: Encodable {
         _encode = wrapped.encode
     }
     
+    public init<T: Encodable>(_ wrapped: [T]) {
+        _encode = wrapped.encode
+    }
+    
     func encode(to encoder: Encoder) throws {
         try _encode(encoder)
     }

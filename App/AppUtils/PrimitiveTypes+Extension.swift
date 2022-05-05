@@ -1,5 +1,5 @@
 //
-//  String+Extension.swift
+//  PrimitiveTypes+Extension.swift
 //  NFTWallet (iOS)
 //
 //  Created by Ukrit Wattanakulchart on 24/3/2565 BE.

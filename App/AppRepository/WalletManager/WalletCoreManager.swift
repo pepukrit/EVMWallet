@@ -9,19 +9,35 @@ import Combine
 import WalletCore
 
 extension WalletCoreManager: WalletManagerProtocol {
-    func getERC20TokenBalances(address: String) async {
-        do {
-            try await NetworkCaller.shared.getTokenBalances(from: address) { tokenBalancesEntity in
-                guard let tokenBalancesEntity = tokenBalancesEntity else { return }
-                self.accounts = tokenBalancesEntity.compactMap {
-                    //TODO: Should map from network entity to domain entity first before doing a logic !!
-                    self.walletMapper.mapERC20TokenAddress(from: $0.contractAddress!, balance: $0.tokenBalance!)
-                }
-            }
-        } catch {
-            assertionFailure(error.localizedDescription)
-            return
+    func getERC20TokenBalances(address: String, contractAddresses: [String]) async {
+        guard let accountBalance = await accountBalanceNetworkRepository.getTokenBalances(
+            from: address,
+            contractAddresses: contractAddresses
+        ) else {
+            return assertionFailure("Cannot retrieve account balance from the address: \(address)")
         }
+        let tokenBalances =  accountBalance.tokenBalances
+        let erc20TokensDetail: [ERC20TokenDetail] = await tokenBalances.prefix(5).asyncCompactMap {
+            guard let tokenDetail = await accountBalanceNetworkRepository.getTokenDetail(from: $0.contractAddress) else {
+                return nil
+            }
+            return .init(tokenDetail: tokenDetail, tokenBalance: $0)
+        }
+        //TODO: Append eth_getBalance result
+        
+        
+        
+        erc20TokensDetail.compactMap {
+            ERC20TokenModel(tokenName: $0.tokenDetail.name,
+                            tokenAmount: "\($0.tokenBalance.tokenBalanceInDouble)",
+                            tokenAbbr: $0.tokenDetail.logo,
+                            totalPrice: "",
+                            unrealizedDiff: "",
+                            coinType: .chainlink)
+        }
+        
+        
+        //TODO: Map [TokenBalance] to accounts
     }
 }
 
@@ -35,10 +51,10 @@ final class WalletCoreManager: ObservableObject {
     @Published var sentTransaction: String?
     
     let abiManager = ContractABIManager.shared
-    let walletMapper: WalletMapper
+    let accountBalanceNetworkRepository: AccountBalanceNetworkRepository
     
     init() {
-        walletMapper = WalletMapperImplementation()
+        accountBalanceNetworkRepository = AccountBalanceNetworkRepositoryImplementation()
     }
     
     func createWallet(from mnemonic: String? = nil,

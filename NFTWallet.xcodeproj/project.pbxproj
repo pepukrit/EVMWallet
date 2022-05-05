@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		219B2CB53DB4CF652BFF2F17 /* Pods_NFTWallet__macOS_.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ABD19A798D6E509B6B49AD0 /* Pods_NFTWallet__macOS_.framework */; };
+		A1037B49281FA029006EF334 /* TokenDetailResultEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1037B48281FA029006EF334 /* TokenDetailResultEntity.swift */; };
+		A1037B4B281FABCE006EF334 /* TokenDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1037B4A281FABCE006EF334 /* TokenDetail.swift */; };
 		A10480A527C91E9A002078F3 /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10480A427C91E9A002078F3 /* Tests_iOS.swift */; };
 		A10480A727C91E9A002078F3 /* Tests_iOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10480A627C91E9A002078F3 /* Tests_iOSLaunchTests.swift */; };
 		A10480B127C91E9A002078F3 /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10480B027C91E9A002078F3 /* Tests_macOS.swift */; };
@@ -41,8 +43,13 @@
 		A14F0B6327CE665000CF6388 /* ERC20TokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14F0B6227CE665000CF6388 /* ERC20TokenModel.swift */; };
 		A16390B527F039AA00F7295D /* KeyChainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16390B427F039AA00F7295D /* KeyChainManager.swift */; };
 		A168405827DCC1ED00FB3C8B /* AccountCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A168405727DCC1ED00FB3C8B /* AccountCreationView.swift */; };
-		A168B8F427ECD89F0065B9C8 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A168B8F327ECD89F0065B9C8 /* String+Extension.swift */; };
+		A168B8F427ECD89F0065B9C8 /* PrimitiveTypes+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A168B8F327ECD89F0065B9C8 /* PrimitiveTypes+Extension.swift */; };
+		A1690E31280BD2BD005C4D22 /* NetworkMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1690E30280BD2BD005C4D22 /* NetworkMapper.swift */; };
+		A1690E36280BD3EE005C4D22 /* AccountBalance.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1690E35280BD3EE005C4D22 /* AccountBalance.swift */; };
+		A1690E39280BD7BD005C4D22 /* AccountBalanceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1690E38280BD7BD005C4D22 /* AccountBalanceRepository.swift */; };
+		A183B71E2822BCAE006D4F70 /* Async+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A183B71D2822BCAE006D4F70 /* Async+Extension.swift */; };
 		A18C103F27F8ACE00091C0E2 /* ETHAlchemySCRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18C103E27F8ACE00091C0E2 /* ETHAlchemySCRequest.swift */; };
+		A19027A6281E93790038A038 /* WalletDomainMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19027A5281E93790038A038 /* WalletDomainMapper.swift */; };
 		A192F28727E61942005DCD77 /* NetworkCaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = A192F28627E61942005DCD77 /* NetworkCaller.swift */; };
 		A195EE3227FB395000B8D2FE /* IntroductionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A195EE3127FB395000B8D2FE /* IntroductionView.swift */; };
 		A195EE3627FB3F8D00B8D2FE /* WalletManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A195EE3527FB3F8D00B8D2FE /* WalletManager.swift */; };
@@ -91,6 +98,8 @@
 		2D2237CAFDE580B7130A4B04 /* Pods_NFTWallet__iOS_.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NFTWallet__iOS_.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CE3A69D56B98B07248378D6 /* Pods-NFTWallet (iOS).debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NFTWallet (iOS).debug.xcconfig"; path = "Target Support Files/Pods-NFTWallet (iOS)/Pods-NFTWallet (iOS).debug.xcconfig"; sourceTree = "<group>"; };
 		7D0AC704AC5161BE1ABE080C /* Pods-NFTWallet (iOS).release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NFTWallet (iOS).release.xcconfig"; path = "Target Support Files/Pods-NFTWallet (iOS)/Pods-NFTWallet (iOS).release.xcconfig"; sourceTree = "<group>"; };
+		A1037B48281FA029006EF334 /* TokenDetailResultEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDetailResultEntity.swift; sourceTree = "<group>"; };
+		A1037B4A281FABCE006EF334 /* TokenDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDetail.swift; sourceTree = "<group>"; };
 		A104808C27C91E9A002078F3 /* NFTWalletApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTWalletApp.swift; sourceTree = "<group>"; };
 		A104808D27C91E9A002078F3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A104808E27C91E9A002078F3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -125,8 +134,13 @@
 		A14F0B6227CE665000CF6388 /* ERC20TokenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ERC20TokenModel.swift; sourceTree = "<group>"; };
 		A16390B427F039AA00F7295D /* KeyChainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainManager.swift; sourceTree = "<group>"; };
 		A168405727DCC1ED00FB3C8B /* AccountCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCreationView.swift; sourceTree = "<group>"; };
-		A168B8F327ECD89F0065B9C8 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		A168B8F327ECD89F0065B9C8 /* PrimitiveTypes+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PrimitiveTypes+Extension.swift"; sourceTree = "<group>"; };
+		A1690E30280BD2BD005C4D22 /* NetworkMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMapper.swift; sourceTree = "<group>"; };
+		A1690E35280BD3EE005C4D22 /* AccountBalance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountBalance.swift; sourceTree = "<group>"; };
+		A1690E38280BD7BD005C4D22 /* AccountBalanceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBalanceRepository.swift; sourceTree = "<group>"; };
+		A183B71D2822BCAE006D4F70 /* Async+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Async+Extension.swift"; sourceTree = "<group>"; };
 		A18C103E27F8ACE00091C0E2 /* ETHAlchemySCRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ETHAlchemySCRequest.swift; sourceTree = "<group>"; };
+		A19027A5281E93790038A038 /* WalletDomainMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletDomainMapper.swift; sourceTree = "<group>"; };
 		A192F28627E61942005DCD77 /* NetworkCaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCaller.swift; sourceTree = "<group>"; };
 		A195EE3127FB395000B8D2FE /* IntroductionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroductionView.swift; sourceTree = "<group>"; };
 		A195EE3527FB3F8D00B8D2FE /* WalletManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletManager.swift; sourceTree = "<group>"; };
@@ -291,6 +305,8 @@
 		A10480CA27C91EDE002078F3 /* AppDomain */ = {
 			isa = PBXGroup;
 			children = (
+				A19027A4281E93690038A038 /* Mapper */,
+				A1690E32280BD354005C4D22 /* Domain */,
 				A12A54E827DF86A10073EDBD /* ContractABI */,
 				A10A4E4227CB93C700CC883F /* Wallet.swift */,
 				A113317A27CD09F300D5A173 /* ETHNetwork.swift */,
@@ -315,7 +331,8 @@
 		A10480CD27C91EFC002078F3 /* AppUtils */ = {
 			isa = PBXGroup;
 			children = (
-				A168B8F327ECD89F0065B9C8 /* String+Extension.swift */,
+				A168B8F327ECD89F0065B9C8 /* PrimitiveTypes+Extension.swift */,
+				A183B71D2822BCAE006D4F70 /* Async+Extension.swift */,
 			);
 			path = AppUtils;
 			sourceTree = "<group>";
@@ -323,6 +340,8 @@
 		A10480CE27C91F02002078F3 /* AppRepository */ = {
 			isa = PBXGroup;
 			children = (
+				A1690E37280BD7A1005C4D22 /* AccountBalanceRepository */,
+				A1690E2F280BD2AC005C4D22 /* NetworkMapper */,
 				A1987D2C2809BA3500001531 /* WalletMapper */,
 				A1987D2B2809BA2200001531 /* WalletManager */,
 				A16390B427F039AA00F7295D /* KeyChainManager.swift */,
@@ -414,6 +433,39 @@
 			path = WalletCoreAccount;
 			sourceTree = "<group>";
 		};
+		A1690E2F280BD2AC005C4D22 /* NetworkMapper */ = {
+			isa = PBXGroup;
+			children = (
+				A1690E30280BD2BD005C4D22 /* NetworkMapper.swift */,
+			);
+			path = NetworkMapper;
+			sourceTree = "<group>";
+		};
+		A1690E32280BD354005C4D22 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				A1690E35280BD3EE005C4D22 /* AccountBalance.swift */,
+				A1037B4A281FABCE006EF334 /* TokenDetail.swift */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		A1690E37280BD7A1005C4D22 /* AccountBalanceRepository */ = {
+			isa = PBXGroup;
+			children = (
+				A1690E38280BD7BD005C4D22 /* AccountBalanceRepository.swift */,
+			);
+			path = AccountBalanceRepository;
+			sourceTree = "<group>";
+		};
+		A19027A4281E93690038A038 /* Mapper */ = {
+			isa = PBXGroup;
+			children = (
+				A19027A5281E93790038A038 /* WalletDomainMapper.swift */,
+			);
+			path = Mapper;
+			sourceTree = "<group>";
+		};
 		A195EE3027FB394100B8D2FE /* Introduction */ = {
 			isa = PBXGroup;
 			children = (
@@ -465,6 +517,7 @@
 				A1C1AA2A27E99CC400951807 /* ETHResult.swift */,
 				A1CB5AC827EB5FE100626833 /* SendRawTransactionResult.swift */,
 				A1B602D628012DE100EB9365 /* TokenBalanceResultEntity.swift */,
+				A1037B48281FA029006EF334 /* TokenDetailResultEntity.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -778,9 +831,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1037B4B281FABCE006EF334 /* TokenDetail.swift in Sources */,
+				A1690E31280BD2BD005C4D22 /* NetworkMapper.swift in Sources */,
 				A195EE3627FB3F8D00B8D2FE /* WalletManager.swift in Sources */,
+				A19027A6281E93790038A038 /* WalletDomainMapper.swift in Sources */,
 				A14F0B6327CE665000CF6388 /* ERC20TokenModel.swift in Sources */,
-				A168B8F427ECD89F0065B9C8 /* String+Extension.swift in Sources */,
+				A168B8F427ECD89F0065B9C8 /* PrimitiveTypes+Extension.swift in Sources */,
 				A10480DC27C92269002078F3 /* AccountView.swift in Sources */,
 				A10480B627C91E9A002078F3 /* ContentView.swift in Sources */,
 				A1E0A30C27F1F74E0048E16C /* ETHTransactionModel.swift in Sources */,
@@ -809,10 +865,13 @@
 				A14E7CE927E581DC00040D80 /* WalletCoreManager.swift in Sources */,
 				A1B602D728012DE100EB9365 /* TokenBalanceResultEntity.swift in Sources */,
 				A1D01FB527D34BB900149E74 /* CryptoCurrencyView.swift in Sources */,
+				A183B71E2822BCAE006D4F70 /* Async+Extension.swift in Sources */,
 				A1065B7527F7EF7100BDC08B /* GenericSCRequest.swift in Sources */,
 				A14468C527FD77BF00C104DE /* HeaderView.swift in Sources */,
 				A1EEEDF027D0CD4F0075E0C8 /* LottieView.swift in Sources */,
 				A113317B27CD09F300D5A173 /* ETHNetwork.swift in Sources */,
+				A1037B49281FA029006EF334 /* TokenDetailResultEntity.swift in Sources */,
+				A1690E36280BD3EE005C4D22 /* AccountBalance.swift in Sources */,
 				A1D01FB027D34B6500149E74 /* ButtonView.swift in Sources */,
 				A1065B7027F74A8700BDC08B /* ContractABIManager.swift in Sources */,
 				A1CB5AC927EB5FE100626833 /* SendRawTransactionResult.swift in Sources */,
@@ -822,6 +881,7 @@
 				A1987D2E2809BA4500001531 /* WalletMapper.swift in Sources */,
 				A16390B527F039AA00F7295D /* KeyChainManager.swift in Sources */,
 				A10A4E4327CB93C700CC883F /* Wallet.swift in Sources */,
+				A1690E39280BD7BD005C4D22 /* AccountBalanceRepository.swift in Sources */,
 				A10EF5CE27D306F900B40114 /* Web3SwiftWalletManager.swift in Sources */,
 				A14468C127FD5A6000C104DE /* WalletManagerProtocol.swift in Sources */,
 			);

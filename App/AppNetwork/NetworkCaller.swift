@@ -12,7 +12,7 @@ struct NetworkCaller {
     static let shared = NetworkCaller()
     
     func call(with scRequest: GenericSCRequest, completion: @escaping (String) -> Void) async throws {
-        if let url = URL(string: Key.alchemyKey) {
+        if let url = URL(string: Key.alchemyRinkebyKey) {
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -47,7 +47,7 @@ struct NetworkCaller {
     }
     
     func sendTransaction(with encodedParams: String, completion: @escaping (String) -> Void) async throws {
-        if let url = URL(string: Key.alchemyKey) {
+        if let url = URL(string: Key.alchemyRinkebyKey) {
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -77,7 +77,7 @@ struct NetworkCaller {
     }
     
     func fetchGasPrice(completion: @escaping (String) -> Void) async throws {
-        if let url = URL(string: Key.alchemyKey) {
+        if let url = URL(string: Key.alchemyRinkebyKey) {
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -107,7 +107,7 @@ struct NetworkCaller {
     }
     
     func getTransactionCount(completion: @escaping (String?) -> Void) async throws {
-        if let url = URL(string: Key.alchemyKey) {
+        if let url = URL(string: Key.alchemyRinkebyKey) {
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -137,7 +137,7 @@ struct NetworkCaller {
     }
     
     func getETHBalance(from walletAddress: String?, completion: @escaping (String) -> Void) async throws {
-        if let url = URL(string: Key.alchemyKey), let walletAddress = walletAddress {
+        if let url = URL(string: Key.alchemyRinkebyKey), let walletAddress = walletAddress {
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -167,40 +167,56 @@ struct NetworkCaller {
         }
     }
     
-    func getTokenBalances(
-        from walletAddress: String?,
-        completion: @escaping ([TokenBalanceResultEntity.TokenBalanceDetailEntity.TokenBalance]?) -> Void
-    ) async throws {
-        if let url = URL(string: Key.alchemyKey), let walletAddress = walletAddress {
-            var request = URLRequest(url: url)
-            request.httpMethod = "POST"
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            
-            let params: [AnyEncodable] = [.init(walletAddress), .init("DEFAULT_TOKENS")]
-            let requestNetworkEntity: ETHAlchemySmartContractRequest = .init(
-                id: 42,
-                jsonrpc: "2.0",
-                method: "alchemy_getTokenBalances",
-                params: params
-            )
-            
-            let httpBody = try JSONEncoder().encode(requestNetworkEntity)
-            request.httpBody = httpBody
-            
-            //TODO: Handle error case
-            URLSession.shared.dataTask(with: request) { data, _, error in
-                if let data = data {
-                    do {
-                        let result = try JSONDecoder().decode(TokenBalanceResultEntity.self, from: data)
-                        let tokenBalancesEntity = result.result?.tokenBalances
-                        completion(tokenBalancesEntity)
-                    } catch {
-                        assertionFailure(error.localizedDescription)
-                        return
-                    }
-                }
-            }
-            .resume()
+    func getTokenBalances(from walletAddress: String?, contractAddresses: [String] = []) async throws -> TokenBalanceResultEntity {
+        guard let url = URL(string: Key.alchemyRinkebyKey),
+              let walletAddress = walletAddress else {
+                  throw NetworkError.networkStackError
         }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let paramsContractAddress: AnyEncodable = contractAddresses.isEmpty
+        ? .init("DEFAULT_TOKENS")
+        : .init(contractAddresses)
+        
+        let params: [AnyEncodable] = [.init(walletAddress), paramsContractAddress]
+        let requestNetworkEntity: ETHAlchemySmartContractRequest = .init(
+            id: 42,
+            jsonrpc: "2.0",
+            method: "alchemy_getTokenBalances",
+            params: params
+        )
+        
+        let httpBody = try JSONEncoder().encode(requestNetworkEntity)
+        request.httpBody = httpBody
+        
+        let (data, _) = try await URLSession.shared.data(for: request, delegate: nil)
+        return try JSONDecoder().decode(TokenBalanceResultEntity.self, from: data)
     }
+    
+    func getTokenDetail(from contractAddress: String) async throws -> TokenDetailResultEntity {
+        guard let url = URL(string: Key.alchemyRinkebyKey) else {
+            throw NetworkError.networkStackError
+        }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let requestNetworkEntity: ETHAlchemyRequest = .init(
+            jsonrpc: "2.0",
+            method: "alchemy_getTokenMetadata",
+            params: [contractAddress],
+            id: 1)
+        
+        let httpBody = try JSONEncoder().encode(requestNetworkEntity)
+        request.httpBody = httpBody
+        
+        let (data, _) = try await URLSession.shared.data(for: request, delegate: nil)
+        return try JSONDecoder().decode(TokenDetailResultEntity.self, from: data)
+    }
+}
+
+private enum NetworkError: Error {
+    case networkStackError
 }

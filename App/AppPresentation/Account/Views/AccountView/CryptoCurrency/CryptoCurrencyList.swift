@@ -34,11 +34,16 @@ struct CryptocurrencyListV2: View {
     }
 
     var body: some View {
-        List {
-            ForEach(wallet.accounts) {
-                CryptocurrencyView(viewModel: .init(from: $0))
-                    .listRowBackground(Color.primaryBgColor)
+        if !wallet.accounts.isEmpty {
+            List {
+                ForEach(wallet.accounts) {
+                    CryptocurrencyView(viewModel: .init(from: $0))
+                        .listRowBackground(Color.primaryBgColor)
+                }
             }
+        } else {
+            Text("Oops ! Something went wrong")
+                .font(with: 16, weight: .bold)
         }
     }
 }

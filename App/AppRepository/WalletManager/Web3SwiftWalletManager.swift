@@ -11,7 +11,7 @@ import web3swift
 import WalletCore
 
 extension Web3SwiftWalletManager: WalletManagerProtocol {
-    func getERC20TokenBalances(address: String) async { return }
+    func getERC20TokenBalances(address: String, contractAddresses: [String]) async { return }
 }
 
 final class Web3SwiftWalletManager: ObservableObject {
