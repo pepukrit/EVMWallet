@@ -25,25 +25,33 @@ struct CryptocurrencyList: View {
     }
 }
 
-struct CryptocurrencyListV2: View {
-    @EnvironmentObject var wallet: WalletManager
+struct WalletCoreCryptocurrencyList: View {
+    @ObservedObject var wallet: WalletCoreManager
 
-    init() {
+    init(wallet: WalletCoreManager) {
+        self.wallet = wallet
         UITableView.appearance().backgroundColor = .clear
         UITableViewCell.appearance().backgroundColor = .clear
     }
 
     var body: some View {
-        if !wallet.accounts.isEmpty {
-            List {
-                ForEach(wallet.accounts) {
-                    CryptocurrencyView(viewModel: .init(from: $0))
-                        .listRowBackground(Color.primaryBgColor)
+        VStack {
+            if !wallet.accounts.isEmpty {
+                List {
+                    ForEach(wallet.accounts) {
+                        CryptocurrencyView(viewModel: .init(from: $0))
+                            .listRowBackground(Color.primaryBgColor)
+                    }
                 }
+            } else {
+                Text("Oops ! Something went wrong")
+                    .font(with: 16, weight: .bold)
             }
-        } else {
-            Text("Oops ! Something went wrong")
-                .font(with: 16, weight: .bold)
+        }
+        .task {
+            await wallet.getERC20TokenBalances(
+                address: wallet.retrieveAddress(coin: .ethereum),
+                contractAddresses: [ERC20TokenCoin.chainlink.address])
         }
     }
 }

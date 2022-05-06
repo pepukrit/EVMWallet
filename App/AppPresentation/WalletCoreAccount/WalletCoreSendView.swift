@@ -40,16 +40,14 @@ struct WalletCoreSendView: View {
                         }
                         .onAppear {
                             Task {
-                                await walletCoreManager.retrieveETHBalance {
-                                    totalAmount = String(format: "%.3f", $0) // format double with 3 decimal places
-                                }
+                                let ethBalance = await walletCoreManager.retrieveETHBalance()
+                                totalAmount = String(format: "%.3f", ethBalance) // format double with 3 decimal places
                             }
                         }
                         .onChange(of: selectedTokenCoin) { coin in
                             Task {
-                                await walletCoreManager.retrieveETHBalance {
-                                    totalAmount = String(format: "%.3f", $0)
-                                }
+                                let ethBalance = await walletCoreManager.retrieveETHBalance()
+                                totalAmount = String(format: "%.3f", ethBalance) // format double with 3 decimal places
                             }
                         }
                     }

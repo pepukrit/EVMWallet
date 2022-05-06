@@ -13,7 +13,7 @@ extension WalletCoreManager: WalletManagerProtocol {
         guard let accountBalance = await accountBalanceNetworkRepository.getTokenBalances(
             from: address,
             contractAddresses: contractAddresses
-        ) else {
+        ), let ethBalance = await accountBalanceNetworkRepository.getETHBalance(from: address) else {
             return assertionFailure("Cannot retrieve account balance from the address: \(address)")
         }
         let tokenBalances =  accountBalance.tokenBalances
@@ -23,21 +23,25 @@ extension WalletCoreManager: WalletManagerProtocol {
             }
             return .init(tokenDetail: tokenDetail, tokenBalance: $0)
         }
-        //TODO: Append eth_getBalance result
+        let ethTokenModel: ERC20TokenModel = .init(tokenName: ERC20TokenCoin.ethereum.tokenName,
+                                                   tokenAmount: "\(ethBalance)",
+                                                   tokenAbbr: ERC20TokenCoin.ethereum.tokenSymbol,
+                                                   totalPrice: "",
+                                                   unrealizedDiff: "",
+                                                   coinType: .ethereum)
         
-        
-        
-        erc20TokensDetail.compactMap {
-            ERC20TokenModel(tokenName: $0.tokenDetail.name,
+        let erc20TokenModels: [ERC20TokenModel] = erc20TokensDetail.compactMap {
+            .init(tokenName: $0.tokenDetail.name,
                             tokenAmount: "\($0.tokenBalance.tokenBalanceInDouble)",
                             tokenAbbr: $0.tokenDetail.logo,
                             totalPrice: "",
                             unrealizedDiff: "",
                             coinType: .chainlink)
         }
-        
-        
-        //TODO: Map [TokenBalance] to accounts
+        let allTokenModels: [ERC20TokenModel] = [ethTokenModel] + erc20TokenModels
+        DispatchQueue.main.async {
+            self.accounts = allTokenModels
+        }
     }
 }
 
@@ -86,14 +90,14 @@ final class WalletCoreManager: ObservableObject {
 
     }
     
-    func retrieveETHBalance(completion: @escaping (Double) -> Void) async {
+    func retrieveETHBalance() async -> Double {
         do {
-            try await NetworkCaller.shared.getETHBalance(from: wallet?.getAddressForCoin(coin: .ethereum)) { accountBalanceInHexString in
-                let availableEther = Double(hexStringWithEther: accountBalanceInHexString)
-                completion(availableEther)
-            }
+            let result = try await NetworkCaller.shared.getETHBalance(from: wallet?.getAddressForCoin(coin: .ethereum))
+            let availableEther = Double(hexStringWithEther: result.result)
+            return availableEther
         } catch {
             assertionFailure(error.localizedDescription)
+            return 0
         }
     }
     

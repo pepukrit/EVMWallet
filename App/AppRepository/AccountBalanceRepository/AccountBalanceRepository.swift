@@ -14,6 +14,7 @@ protocol AccountBalanceNetworkRepository: AnyObject {
     ) async -> AccountBalance?
     
     func getTokenDetail(from contractAddress: String) async -> TokenDetail?
+    func getETHBalance(from walletAddress: String) async -> Double?
 }
 
 final class AccountBalanceNetworkRepositoryImplementation: AccountBalanceNetworkRepository {
@@ -47,5 +48,15 @@ final class AccountBalanceNetworkRepositoryImplementation: AccountBalanceNetwork
             return nil
         }
     }
+    
+    func getETHBalance(from walletAddress: String) async -> Double? {
+        do {
+            let result = try await NetworkCaller.shared.getETHBalance(from: walletAddress)
+            let availableEther = Double(hexStringWithEther: result.result)
+            return availableEther
+        } catch {
+            assertionFailure(error.localizedDescription)
+            return nil
+        }
+    }
 }
-

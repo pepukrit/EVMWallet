@@ -28,15 +28,9 @@ struct AccountDetailViewV2: View {
                 )
             )
             
-            CryptocurrencyListV2()
-                .task {
-                    //TODO: WalletManagerType should be a generic one to call getTokenBalances function
-                    if wallet.walletManagerType?.isWalletCoreWallet ?? false {
-                        await wallet.walletCoreSwiftWallet?.getERC20TokenBalances(
-                            address: wallet.address,
-                            contractAddresses: [ERC20TokenCoin.chainlink.address])
-                    }
-                }
+            if let walletCore = wallet.walletCoreSwiftWallet {
+                WalletCoreCryptocurrencyList(wallet: walletCore)
+            } else {  } //TODO: Handle web3swift wallet creation as well
             
             Spacer()
         }
