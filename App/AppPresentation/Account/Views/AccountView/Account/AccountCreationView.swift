@@ -79,7 +79,11 @@ struct AccountCreationView: View {
             Spacer()
             
             NavigationLink(isActive: $shouldNavigate, destination: {
-                TabBarView()
+                NavigationView {
+                    TabBarView()
+                }
+                .navigationTitle("")
+                .navigationBarHidden(true)
             }) {
                 EmptyView()
             }

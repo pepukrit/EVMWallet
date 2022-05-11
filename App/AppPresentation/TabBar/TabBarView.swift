@@ -21,6 +21,8 @@ struct TabBarView: View {
     var body: some View {
         TabView(selection: $tabSelection) {
             AccountDetailViewV2()
+                .navigationTitle("")
+                .navigationBarHidden(true)
                 .tabItem {
                     Label("Account", systemImage: "mail.stack")
                 }
@@ -28,7 +30,6 @@ struct TabBarView: View {
         }
         .accentColor(.white)
         .preferredColorScheme(.dark)
-        .navigationBarBackButtonHidden(true)
     }
 }
 

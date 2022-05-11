@@ -8,46 +8,13 @@
 import Combine
 import WalletCore
 
-extension WalletCoreManager: WalletManagerProtocol {
-    func getERC20TokenBalances(address: String, contractAddresses: [String]) async {
-        guard let accountBalance = await accountBalanceNetworkRepository.getTokenBalances(
-            from: address,
-            contractAddresses: contractAddresses
-        ), let ethBalance = await accountBalanceNetworkRepository.getETHBalance(from: address) else {
-            return assertionFailure("Cannot retrieve account balance from the address: \(address)")
-        }
-        let tokenBalances =  accountBalance.tokenBalances
-        let erc20TokensDetail: [ERC20TokenDetail] = await tokenBalances.prefix(5).asyncCompactMap {
-            guard let tokenDetail = await accountBalanceNetworkRepository.getTokenDetail(from: $0.contractAddress) else {
-                return nil
-            }
-            return .init(tokenDetail: tokenDetail, tokenBalance: $0)
-        }
-        let ethTokenModel: ERC20TokenModel = .init(tokenName: ERC20TokenCoin.ethereum.tokenName,
-                                                   tokenAmount: "\(ethBalance)",
-                                                   tokenAbbr: ERC20TokenCoin.ethereum.tokenSymbol,
-                                                   totalPrice: "",
-                                                   unrealizedDiff: "",
-                                                   coinType: .ethereum)
-        
-        let erc20TokenModels: [ERC20TokenModel] = erc20TokensDetail.compactMap {
-            .init(tokenName: $0.tokenDetail.name,
-                            tokenAmount: "\($0.tokenBalance.tokenBalanceInDouble)",
-                            tokenAbbr: $0.tokenDetail.logo,
-                            totalPrice: "",
-                            unrealizedDiff: "",
-                            coinType: .chainlink)
-        }
-        let allTokenModels: [ERC20TokenModel] = [ethTokenModel] + erc20TokenModels
-        DispatchQueue.main.async {
-            self.accounts = allTokenModels
-        }
-    }
-}
-
 final class WalletCoreManager: ObservableObject {
+    enum AccountState {
+        case viewIsReady, loading, empty, notEmpty
+    }
     
     @Published var wallet: HDWallet?
+    @Published var state: AccountState = .viewIsReady
     
     //TODO: Clean up these local variables
     @Published var accounts: [ERC20TokenModel] = []
@@ -150,6 +117,46 @@ final class WalletCoreManager: ObservableObject {
         } catch {
             assertionFailure(error.localizedDescription)
             return
+        }
+    }
+}
+
+extension WalletCoreManager: WalletManagerProtocol {
+    func getERC20TokenBalances(address: String, contractAddresses: [String]) async {
+        state = .loading
+        guard let accountBalance = await accountBalanceNetworkRepository.getTokenBalances(
+            from: address,
+            contractAddresses: contractAddresses
+        ), let ethBalance = await accountBalanceNetworkRepository.getETHBalance(from: address) else {
+            state = .viewIsReady
+            return assertionFailure("Cannot retrieve account balance from the address: \(address)")
+        }
+        let tokenBalances =  accountBalance.tokenBalances
+        let erc20TokensDetail: [ERC20TokenDetail] = await tokenBalances.prefix(5).asyncCompactMap {
+            guard let tokenDetail = await accountBalanceNetworkRepository.getTokenDetail(from: $0.contractAddress) else {
+                return nil
+            }
+            return .init(tokenDetail: tokenDetail, tokenBalance: $0)
+        }
+        let ethTokenModel: ERC20TokenModel = .init(tokenName: ERC20TokenCoin.ethereum.tokenName,
+                                                   tokenAmount: "\(ethBalance)",
+                                                   tokenAbbr: ERC20TokenCoin.ethereum.tokenSymbol,
+                                                   totalPrice: "",
+                                                   unrealizedDiff: "",
+                                                   coinType: .ethereum)
+        
+        let erc20TokenModels: [ERC20TokenModel] = erc20TokensDetail.compactMap {
+            .init(tokenName: $0.tokenDetail.name,
+                            tokenAmount: "\($0.tokenBalance.tokenBalanceInDouble)",
+                            tokenAbbr: $0.tokenDetail.logo,
+                            totalPrice: "",
+                            unrealizedDiff: "",
+                            coinType: .chainlink)
+        }
+        let allTokenModels: [ERC20TokenModel] = [ethTokenModel] + erc20TokenModels
+        DispatchQueue.main.async {
+            self.accounts = allTokenModels
+            self.state = allTokenModels.isEmpty ? .empty : .notEmpty
         }
     }
 }
