@@ -34,7 +34,7 @@
 		A127A68027EDE332005F01EE /* WalletCoreSendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A127A67F27EDE332005F01EE /* WalletCoreSendView.swift */; };
 		A12A54E727DF7F850073EDBD /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12A54E627DF7F850073EDBD /* View+Extensions.swift */; };
 		A12A54EA27DF86AE0073EDBD /* ContractABI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12A54E927DF86AE0073EDBD /* ContractABI.swift */; };
-		A12F925627D10738002F2BD4 /* SendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12F925527D10738002F2BD4 /* SendView.swift */; };
+		A12F925627D10738002F2BD4 /* Web3SwiftSendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12F925527D10738002F2BD4 /* Web3SwiftSendView.swift */; };
 		A14468C127FD5A6000C104DE /* WalletManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14468C027FD5A6000C104DE /* WalletManagerProtocol.swift */; };
 		A14468C327FD773500C104DE /* AccountDetailViewV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14468C227FD773500C104DE /* AccountDetailViewV2.swift */; };
 		A14468C527FD77BF00C104DE /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14468C427FD77BF00C104DE /* HeaderView.swift */; };
@@ -67,6 +67,7 @@
 		A1D01FB827D34BF900149E74 /* AccountDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D01FB727D34BF900149E74 /* AccountDetailView.swift */; };
 		A1D01FBA27D34C5000149E74 /* AccountLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D01FB927D34C5000149E74 /* AccountLoadingView.swift */; };
 		A1DC2FE2282BC88F007E96D7 /* WalletCoreCryptoCurrencyList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DC2FE1282BC88F007E96D7 /* WalletCoreCryptoCurrencyList.swift */; };
+		A1DC2FE8282BD557007E96D7 /* WalletCoreSendTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DC2FE7282BD557007E96D7 /* WalletCoreSendTransactionView.swift */; };
 		A1E0A30C27F1F74E0048E16C /* ETHTransactionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E0A30B27F1F74E0048E16C /* ETHTransactionModel.swift */; };
 		A1EEEDE627D059300075E0C8 /* ERC20TokenAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EEEDE527D059300075E0C8 /* ERC20TokenAddress.swift */; };
 		A1EEEDE827D0C44F0075E0C8 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EEEDE727D0C44F0075E0C8 /* Color.swift */; };
@@ -126,7 +127,7 @@
 		A127A67F27EDE332005F01EE /* WalletCoreSendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletCoreSendView.swift; sourceTree = "<group>"; };
 		A12A54E627DF7F850073EDBD /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		A12A54E927DF86AE0073EDBD /* ContractABI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractABI.swift; sourceTree = "<group>"; };
-		A12F925527D10738002F2BD4 /* SendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendView.swift; sourceTree = "<group>"; };
+		A12F925527D10738002F2BD4 /* Web3SwiftSendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3SwiftSendView.swift; sourceTree = "<group>"; };
 		A14468C027FD5A6000C104DE /* WalletManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletManagerProtocol.swift; sourceTree = "<group>"; };
 		A14468C227FD773500C104DE /* AccountDetailViewV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailViewV2.swift; sourceTree = "<group>"; };
 		A14468C427FD77BF00C104DE /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
@@ -159,6 +160,7 @@
 		A1D01FB727D34BF900149E74 /* AccountDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailView.swift; sourceTree = "<group>"; };
 		A1D01FB927D34C5000149E74 /* AccountLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountLoadingView.swift; sourceTree = "<group>"; };
 		A1DC2FE1282BC88F007E96D7 /* WalletCoreCryptoCurrencyList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletCoreCryptoCurrencyList.swift; sourceTree = "<group>"; };
+		A1DC2FE7282BD557007E96D7 /* WalletCoreSendTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletCoreSendTransactionView.swift; sourceTree = "<group>"; };
 		A1E0A30B27F1F74E0048E16C /* ETHTransactionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ETHTransactionModel.swift; sourceTree = "<group>"; };
 		A1EEEDE527D059300075E0C8 /* ERC20TokenAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ERC20TokenAddress.swift; sourceTree = "<group>"; };
 		A1EEEDE727D0C44F0075E0C8 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -556,7 +558,8 @@
 		A1D01FAA27D34AFB00149E74 /* SendView */ = {
 			isa = PBXGroup;
 			children = (
-				A12F925527D10738002F2BD4 /* SendView.swift */,
+				A12F925527D10738002F2BD4 /* Web3SwiftSendView.swift */,
+				A1DC2FE7282BD557007E96D7 /* WalletCoreSendTransactionView.swift */,
 			);
 			path = SendView;
 			sourceTree = "<group>";
@@ -843,6 +846,7 @@
 				A10480DC27C92269002078F3 /* AccountView.swift in Sources */,
 				A10480B627C91E9A002078F3 /* ContentView.swift in Sources */,
 				A1E0A30C27F1F74E0048E16C /* ETHTransactionModel.swift in Sources */,
+				A1DC2FE8282BD557007E96D7 /* WalletCoreSendTransactionView.swift in Sources */,
 				A1EEEDE827D0C44F0075E0C8 /* Color.swift in Sources */,
 				A14468C327FD773500C104DE /* AccountDetailViewV2.swift in Sources */,
 				A10480DF27C9CE82002078F3 /* MarketPlaceView.swift in Sources */,
@@ -852,7 +856,7 @@
 				A1065B7327F7581D00BDC08B /* WalletCoreSmartContractView.swift in Sources */,
 				A12A54EA27DF86AE0073EDBD /* ContractABI.swift in Sources */,
 				A10480D927C91FCC002078F3 /* TabBarView.swift in Sources */,
-				A12F925627D10738002F2BD4 /* SendView.swift in Sources */,
+				A12F925627D10738002F2BD4 /* Web3SwiftSendView.swift in Sources */,
 				A1D01FAE27D34B5200149E74 /* PriceStatusView.swift in Sources */,
 				A18C103F27F8ACE00091C0E2 /* ETHAlchemySCRequest.swift in Sources */,
 				A195EE3227FB395000B8D2FE /* IntroductionView.swift in Sources */,

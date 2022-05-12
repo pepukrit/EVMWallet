@@ -50,7 +50,7 @@ final class WalletCoreManager: ObservableObject {
     func retrieveAddress(coin: CoinType) -> String {
         guard let wallet = wallet else {
             assertionFailure("Unexpectedly not found a wallet")
-            return ""
+            return "UNDEFINED"
         }
         let address = wallet.getAddressForCoin(coin: coin)
         return address
@@ -116,7 +116,7 @@ final class WalletCoreManager: ObservableObject {
             }
         } catch {
             assertionFailure(error.localizedDescription)
-            return
+            completion(false)
         }
     }
 }
@@ -204,7 +204,7 @@ private extension WalletCoreManager {
                     completion(true)
                 }
             }
-        }
+        } else { completion(false) }
     }
 }
 

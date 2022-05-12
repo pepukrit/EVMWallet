@@ -25,8 +25,15 @@ struct ButtonView: View {
                     RoundedRectangle(cornerRadius: 22, style: .continuous)
                 )
             
-            NavigationLink(destination: SendView(), isActive: $isSendPresented) {
-                EmptyView()
+            if let wallet = wallet.walletCoreSwiftWallet {
+                NavigationLink(destination: WalletCoreSendTransactionView(wallet: wallet),
+                               isActive: $isSendPresented) {
+                    EmptyView()
+                }
+            } else {
+                NavigationLink(destination: Web3SwiftSendView(), isActive: $isSendPresented) {
+                    EmptyView()
+                }
             }
             
             Button(action: {

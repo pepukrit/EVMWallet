@@ -1,5 +1,5 @@
 //
-//  SendView.swift
+//  Web3SwiftSendView.swift
 //  NFTWallet (iOS)
 //
 //  Created by Ukrit Wattanakulchart on 3/3/2565 BE.
@@ -8,7 +8,7 @@
 import Lottie
 import SwiftUI
 
-struct SendView: View {
+struct Web3SwiftSendView: View {
     @EnvironmentObject var wallet: Web3SwiftWalletManager
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
@@ -145,7 +145,7 @@ struct SendView: View {
     }
 }
 
-private extension SendView {
+private extension Web3SwiftSendView {
     
     struct AlertViewModel {
         let text: String
@@ -185,7 +185,7 @@ private extension TransactionResult {
 
 struct SendView_Previews: PreviewProvider {
     static var previews: some View {
-        SendView()
+        Web3SwiftSendView()
             .environmentObject(Web3SwiftWalletManager())
     }
 }
