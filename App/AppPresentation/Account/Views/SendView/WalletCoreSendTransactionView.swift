@@ -38,8 +38,9 @@ struct WalletCoreSendTransactionView: View {
                     Text(address)
                     
                     Picker(selection: $selectedTokenCoin, label: Text("Asset")) {
-                        ForEach(ERC20TokenCoin.allCases, id: \.self) { token in
-                            Text(token.tokenSymbol)
+                        let coinTypes = wallet.accounts.compactMap { $0.coinType }
+                        ForEach(coinTypes, id: \.self) { coinType in
+                            Text(coinType.tokenSymbol)
                         }
                     }
                     .pickerStyle(.menu)

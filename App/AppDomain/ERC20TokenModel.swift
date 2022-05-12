@@ -8,7 +8,7 @@
 import WalletCore
 
 struct ERC20TokenModel: Identifiable {
-    var id: UUID = .init()
+    var id: String { tokenAbbr }
     let tokenName: String // Cardano
     let tokenAmount: String // 1000
     let tokenAbbr: String // ADA
