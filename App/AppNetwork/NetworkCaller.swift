@@ -46,94 +46,66 @@ struct NetworkCaller {
         }
     }
     
-    func sendTransaction(with encodedParams: String, completion: @escaping (String) -> Void) async throws {
-        if let url = URL(string: Key.alchemyRinkebyKey) {
-            var request = URLRequest(url: url)
-            request.httpMethod = "POST"
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            
-            let requestNetworkEntity = ETHAlchemyRequest(
-                jsonrpc: "2.0",
-                method: "eth_sendRawTransaction",
-                params: [encodedParams],
-                id: 1
-            )
-            
-            let httpBody = try JSONEncoder().encode(requestNetworkEntity)
-            request.httpBody = httpBody
-            
-            URLSession.shared.dataTask(with: request) { data, _, error in
-                if let data = data {
-                    do {
-                        let result = try JSONDecoder().decode(SendRawTransactionResult.self, from: data)
-                        completion(result.result)
-                    } catch {
-                        assertionFailure(error.localizedDescription)
-                        return
-                    }
-                }
-            }.resume()
+    func sendTransaction(with encodedParams: String?) async throws -> SendRawTransactionResult {
+        guard let url = URL(string: Key.alchemyRinkebyKey), let encodedParams = encodedParams else {
+            throw NetworkError.networkStackError
         }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let requestNetworkEntity = ETHAlchemyRequest(
+            jsonrpc: "2.0",
+            method: "eth_sendRawTransaction",
+            params: [encodedParams],
+            id: 1
+        )
+        
+        let httpBody = try JSONEncoder().encode(requestNetworkEntity)
+        request.httpBody = httpBody
+        
+        let (data, _) = try await URLSession.shared.data(for: request, delegate: nil)
+        return try JSONDecoder().decode(SendRawTransactionResult.self, from: data)
     }
     
-    func fetchGasPrice(completion: @escaping (String) -> Void) async throws {
-        if let url = URL(string: Key.alchemyRinkebyKey) {
-            var request = URLRequest(url: url)
-            request.httpMethod = "POST"
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            
-            let requestNetworkEntity = ETHAlchemyRequest(
-                jsonrpc: "2.0",
-                method: "eth_gasPrice",
-                params: [],
-                id: 0
-            )
-            
-            let httpBody = try JSONEncoder().encode(requestNetworkEntity)
-            request.httpBody = httpBody
-            
-            URLSession.shared.dataTask(with: request) { data, _, error in
-                if let data = data {
-                    do {
-                        let result = try JSONDecoder().decode(ETHResult.self, from: data)
-                        completion(result.result)
-                    } catch {
-                        assertionFailure(error.localizedDescription)
-                        return
-                    }
-                }
-            }.resume()
-        }
+    func fetchGasPrice() async throws -> ETHResult {
+        guard let url = URL(string: Key.alchemyRinkebyKey) else { throw NetworkError.networkStackError }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let requestNetworkEntity = ETHAlchemyRequest(
+            jsonrpc: "2.0",
+            method: "eth_gasPrice",
+            params: [],
+            id: 0
+        )
+        
+        let httpBody = try JSONEncoder().encode(requestNetworkEntity)
+        request.httpBody = httpBody
+        
+        let (data, _) = try await URLSession.shared.data(for: request, delegate: nil)
+        return try JSONDecoder().decode(ETHResult.self, from: data)
     }
     
-    func getTransactionCount(completion: @escaping (String?) -> Void) async throws {
-        if let url = URL(string: Key.alchemyRinkebyKey) {
-            var request = URLRequest(url: url)
-            request.httpMethod = "POST"
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            
-            let requestNetworkEntity = ETHAlchemyRequest(
-                jsonrpc: "2.0",
-                method: "eth_getTransactionCount",
-                params: ["0x051ab25Ea6f9593c647D639E04b562A6C58c577E", "latest"],
-                id: 0
-            )
-            
-            let httpBody = try JSONEncoder().encode(requestNetworkEntity)
-            request.httpBody = httpBody
-            
-            URLSession.shared.dataTask(with: request) { data, _, error in
-                if let data = data {
-                    do {
-                        let result = try JSONDecoder().decode(ETHResult.self, from: data)
-                        completion(result.result)
-                    } catch {
-                        assertionFailure(error.localizedDescription)
-                        completion(nil)
-                    }
-                }
-            }.resume()
-        }
+    func getTransactionCount() async throws -> ETHResult {
+        guard let url = URL(string: Key.alchemyRinkebyKey) else { throw NetworkError.networkStackError }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let requestNetworkEntity = ETHAlchemyRequest(
+            jsonrpc: "2.0",
+            method: "eth_getTransactionCount",
+            params: ["0x051ab25Ea6f9593c647D639E04b562A6C58c577E", "latest"],
+            id: 0
+        )
+        
+        let httpBody = try JSONEncoder().encode(requestNetworkEntity)
+        request.httpBody = httpBody
+        
+        let (data, _) = try await URLSession.shared.data(for: request, delegate: nil)
+        return try JSONDecoder().decode(ETHResult.self, from: data)
     }
     
     func getETHBalance(from walletAddress: String?) async throws -> ETHResult {
