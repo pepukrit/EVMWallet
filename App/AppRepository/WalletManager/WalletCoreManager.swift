@@ -123,38 +123,43 @@ final class WalletCoreManager: ObservableObject {
         }
     }
     
-//    func sendTransaction(with ether: Double,
-//                         address: String,
-//                         completion: @escaping (Bool) -> Void
-//    ) async {
-//        do {
-//            if let wallet = wallet {
-//                try await prepareTransactionModel { transactionModel in
-//                    let signerInput = EthereumSigningInput.with {
-//                        $0.nonce = Data(hexString: transactionModel.nonce)!
-//                        $0.chainID = Data(hexString: "04")! // https://besu.hyperledger.org/en/stable/Concepts/NetworkID-And-ChainID/
-//                        $0.gasPrice = Data(hexString: transactionModel.gasPrice)!
-//                        $0.gasLimit = Data(hexString: "5208")! // decimal 21000
-//                        $0.toAddress = address
-//                        $0.transaction = EthereumTransaction.with {
-//                            $0.transfer = EthereumTransaction.Transfer.with { // Use .erc20Transfer instead
-//                                let etherInHexString = String(ether: ether)
-//                                $0.amount = Data(hexString: etherInHexString)!
-//                            }
-//                        }
-//                        $0.privateKey = wallet.getKeyForCoin(coin: .ethereum).data
-//                    }
-//
-//                    self.signTransaction(from: signerInput) {
-//                        completion($0)
-//                    }
-//                }
-//            }
-//        } catch {
-//            assertionFailure(error.localizedDescription)
-//            completion(false)
-//        }
-//    }
+    func sendERC20Transaction(with ether: Double,
+                              coin: ERC20TokenCoin,
+                              address: String,
+                              completion: @escaping (Bool) -> Void
+    ) async {
+        do {
+            if let wallet = wallet {
+                let preparedETHModel = try await prepareTransactionModel()
+                let signerInput = EthereumSigningInput.with {
+                    $0.nonce = Data(hexString: preparedETHModel.nonce)!
+                    $0.chainID = Data(hexString: "04")! // https://besu.hyperledger.org/en/stable/Concepts/NetworkID-And-ChainID/
+                    $0.gasPrice = Data(hexString: preparedETHModel.gasPrice)!
+                    $0.gasLimit = Data(hexString: "033450")! // decimal 210000
+                    $0.toAddress = coin.address
+                    $0.transaction = EthereumTransaction.with {
+                        $0.erc20Transfer = EthereumTransaction.ERC20Transfer.with {
+                            let etherInHexString = String(ether: ether)
+                            $0.to = address
+                            $0.amount = Data(hexString: etherInHexString)!
+                        }
+                    }
+                    $0.privateKey = wallet.getKeyForCoin(coin: .ethereum).data
+                }
+
+                let signedTransaction = await signTransaction(from: signerInput)
+                signedTransaction.map { transaction in
+                    DispatchQueue.main.async {
+                        self.sentTransaction = transaction
+                    }
+                }
+                completion(true)
+            }
+        } catch {
+            assertionFailure(error.localizedDescription)
+            completion(false)
+        }
+    }
 }
 
 extension WalletCoreManager: WalletManagerProtocol {

@@ -116,6 +116,12 @@ struct WalletCoreSendTransactionView: View {
                                         shouldShowLoadingView = false
                                         shouldShowDialogDone = true
                                     }
+                                } else {
+                                    await wallet.sendERC20Transaction(with: destinationAmount, coin: selectedTokenCoin, address: destinationAddress) { result in
+                                        alertViewModel = makeAlertComponentFrom(result: result)
+                                        shouldShowLoadingView = false
+                                        shouldShowDialogDone = true
+                                    }
                                 }
                             }
                         }) {
