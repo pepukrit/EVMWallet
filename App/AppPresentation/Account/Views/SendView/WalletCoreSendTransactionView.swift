@@ -24,6 +24,7 @@ struct WalletCoreSendTransactionView: View {
     
     @State var shouldShowLoadingView: Bool = false
     @State var shouldShowDialogDone: Bool = false
+    @State var shouldShowAlertDialog: Bool = false
     
     init(wallet: WalletCoreManager) {
         self.wallet = wallet
@@ -105,23 +106,30 @@ struct WalletCoreSendTransactionView: View {
                         .padding(.horizontal)
                         
                         Button(action: {
-                            shouldShowLoadingView = true
                             Task {
                                 guard let destinationAmount = Double(destinationAmount) else {
                                     return
                                 }
-                                if selectedTokenCoin == .ethereum {
-                                    await wallet.sendTransaction(with: destinationAmount, address: destinationAddress) { result in
-                                        alertViewModel = makeAlertComponentFrom(result: result)
-                                        shouldShowLoadingView = false
-                                        shouldShowDialogDone = true
+                                let keyChainPassphrase = try KeyChainManager.shared.getGenericPasswordFor(
+                                    address: wallet.retrieveAddress(coin: .ethereum)
+                                )
+                                if passphrase == keyChainPassphrase {
+                                    shouldShowLoadingView = true
+                                    if selectedTokenCoin == .ethereum {
+                                        await wallet.sendTransaction(with: destinationAmount, address: destinationAddress) { result in
+                                            alertViewModel = makeAlertComponentFrom(result: result)
+                                            shouldShowLoadingView = false
+                                            shouldShowDialogDone = true
+                                        }
+                                    } else {
+                                        await wallet.sendERC20Transaction(with: destinationAmount, coin: selectedTokenCoin, address: destinationAddress) { result in
+                                            alertViewModel = makeAlertComponentFrom(result: result)
+                                            shouldShowLoadingView = false
+                                            shouldShowDialogDone = true
+                                        }
                                     }
                                 } else {
-                                    await wallet.sendERC20Transaction(with: destinationAmount, coin: selectedTokenCoin, address: destinationAddress) { result in
-                                        alertViewModel = makeAlertComponentFrom(result: result)
-                                        shouldShowLoadingView = false
-                                        shouldShowDialogDone = true
-                                    }
+                                    shouldShowAlertDialog = true
                                 }
                             }
                         }) {
@@ -138,6 +146,9 @@ struct WalletCoreSendTransactionView: View {
                                   dismissButton: .default(Text(alertViewModel.dismissButton)) {
                                 mode.wrappedValue.dismiss()
                             })
+                        }
+                        .alert(isPresented: $shouldShowAlertDialog) {
+                            makeAlertPassphraseMismatched()
                         }
                     }
                     .font(.system(size: 16, weight: .regular, design: .monospaced))
@@ -169,6 +180,15 @@ private extension WalletCoreSendTransactionView {
         result
         ? .init(text: "Completed !!", message: "Your transaction is completed", dismissButton: "Done")
         : .init(text: "Error", message: "Unexpectedly found an error before sending a transaction", dismissButton: "Done")
+    }
+    
+    func makeAlertPassphraseMismatched() -> Alert {
+        .init(title: Text("Cannot sign a transaction"),
+              message: Text("Your passphrase is incorrect"),
+              dismissButton: .cancel(Text("Confirm")) {
+            shouldShowAlertDialog = false
+            shouldAskPasswordConfirmation = false
+        })
     }
 }
 
