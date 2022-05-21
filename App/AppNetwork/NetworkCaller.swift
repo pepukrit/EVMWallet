@@ -8,9 +8,11 @@
 import Foundation
 
 struct NetworkCaller {
-    
     static let shared = NetworkCaller()
-    
+}
+
+//TODO: Alchemy API
+extension NetworkCaller {
     func call(with scRequest: GenericSCRequest, completion: @escaping (String) -> Void) async throws {
         if let url = URL(string: Key.alchemyRinkebyKey) {
             var request = URLRequest(url: url)
@@ -177,6 +179,22 @@ struct NetworkCaller {
         
         let (data, _) = try await URLSession.shared.data(for: request, delegate: nil)
         return try JSONDecoder().decode(TokenDetailResultEntity.self, from: data)
+    }
+}
+
+//TODO: CoinApi API
+extension NetworkCaller {
+    func getTokenPriceFrom(symbol: String) async throws -> CoinTokenResultEntity {
+        guard let url = URL(string: "https://rest.coinapi.io/v1/exchangerate/\(symbol)/USD") else {
+            throw NetworkError.networkStackError
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue(Key.coinApiKey, forHTTPHeaderField: "X-CoinAPI-Key")
+        
+        let (data, _) = try await URLSession.shared.data(for: request, delegate: nil)
+        return try JSONDecoder().decode(CoinTokenResultEntity.self, from: data)
     }
 }
 

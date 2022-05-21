@@ -180,19 +180,19 @@ extension WalletCoreManager: WalletManagerProtocol {
             return .init(tokenDetail: tokenDetail, tokenBalance: $0)
         }
         let ethTokenModel: ERC20TokenModel = .init(tokenName: ERC20TokenCoin.ethereum.tokenName,
-                                                   tokenAmount: "\(ethBalance)",
+                                                   tokenAmount: "\(String(format: "%.3f", ethBalance.balance))",
                                                    tokenAbbr: ERC20TokenCoin.ethereum.tokenSymbol,
-                                                   totalPrice: "",
+                                                   totalPrice: "$\(String(format: "%.3f", ethBalance.balanceInUSD))",
                                                    unrealizedDiff: "",
                                                    coinType: .ethereum)
         
         let erc20TokenModels: [ERC20TokenModel] = erc20TokensDetail.compactMap {
             .init(tokenName: $0.tokenDetail.name,
-                            tokenAmount: "\($0.tokenBalance.tokenBalanceInDouble)",
-                            tokenAbbr: $0.tokenDetail.logo,
-                            totalPrice: "",
-                            unrealizedDiff: "",
-                            coinType: .chainlink)
+                  tokenAmount: "\(String(format: "%.3f", $0.tokenBalance.tokenBalanceInDouble))",
+                  tokenAbbr: $0.tokenDetail.logo,
+                  totalPrice: "$\(String(format: "%.3f", $0.tokenDetail.rateInUSD * $0.tokenBalance.tokenBalanceInDouble))",
+                  unrealizedDiff: "",
+                  coinType: .chainlink)
         }
         let allTokenModels: [ERC20TokenModel] = [ethTokenModel] + erc20TokenModels
         DispatchQueue.main.async {

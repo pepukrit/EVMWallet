@@ -9,7 +9,7 @@ import Foundation
 
 protocol NetworkMapper {
     func mapToAccountBalance(from entity: TokenBalanceResultEntity) -> AccountBalance?
-    func mapToERC20Token(from entity: TokenDetailResultEntity) -> TokenDetail?
+    func mapToERC20Token(from entity: TokenDetailResultEntity, coin: CoinTokenResultEntity) -> TokenDetail?
 }
 
 struct NetworkMapperImplementation: NetworkMapper {
@@ -23,16 +23,19 @@ struct NetworkMapperImplementation: NetworkMapper {
         return .init(address: address, tokenBalances: tokenBalances)
     }
     
-    func mapToERC20Token(from entity: TokenDetailResultEntity) -> TokenDetail? {
+    func mapToERC20Token(from entity: TokenDetailResultEntity, coin: CoinTokenResultEntity) -> TokenDetail? {
         guard let result = entity.result else {
             return nil
         }
         let name = result.name ?? ""
         let symbol = result.symbol ?? ""
         let logo = result.logo ?? ""
+        let rateInUSD = coin.rate
         
-        return .init(name: name, symbol: symbol, logo: logo)
-        
+        return .init(name: name,
+                     symbol: symbol,
+                     logo: logo,
+                     rateInUSD: rateInUSD)
     }
 }
 

@@ -11,6 +11,7 @@ struct TokenDetail {
     let name: String
     let symbol: String
     let logo: String
+    let rateInUSD: Double
 }
 
 struct ERC20TokenDetail {

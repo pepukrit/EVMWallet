@@ -37,3 +37,10 @@ struct CryptocurrencyView: View {
         .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
     }
 }
+
+struct CryptocurrencyView_Previews: PreviewProvider {
+    static var previews: some View {
+        CryptocurrencyView(viewModel: .init(image: "", tokenName: "Bitcoin", tokenAmount: "10.00", tokenSymbol: "BTC", totalPrice: "30,000.00043854278439487", unrealizedDiff: ""))
+            .padding()
+    }
+}

@@ -68,6 +68,8 @@
 		A1D01FBA27D34C5000149E74 /* AccountLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D01FB927D34C5000149E74 /* AccountLoadingView.swift */; };
 		A1DC2FE2282BC88F007E96D7 /* WalletCoreCryptoCurrencyList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DC2FE1282BC88F007E96D7 /* WalletCoreCryptoCurrencyList.swift */; };
 		A1DC2FE8282BD557007E96D7 /* WalletCoreSendTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DC2FE7282BD557007E96D7 /* WalletCoreSendTransactionView.swift */; };
+		A1DE8DEA2838EC2500962FF8 /* CoinTokenResultEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DE8DE92838EC2500962FF8 /* CoinTokenResultEntity.swift */; };
+		A1DE8DEE2838F34400962FF8 /* ETHBalance.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DE8DED2838F34400962FF8 /* ETHBalance.swift */; };
 		A1E0A30C27F1F74E0048E16C /* ETHTransactionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E0A30B27F1F74E0048E16C /* ETHTransactionModel.swift */; };
 		A1EEEDE627D059300075E0C8 /* ERC20TokenAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EEEDE527D059300075E0C8 /* ERC20TokenAddress.swift */; };
 		A1EEEDE827D0C44F0075E0C8 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EEEDE727D0C44F0075E0C8 /* Color.swift */; };
@@ -161,6 +163,8 @@
 		A1D01FB927D34C5000149E74 /* AccountLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountLoadingView.swift; sourceTree = "<group>"; };
 		A1DC2FE1282BC88F007E96D7 /* WalletCoreCryptoCurrencyList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletCoreCryptoCurrencyList.swift; sourceTree = "<group>"; };
 		A1DC2FE7282BD557007E96D7 /* WalletCoreSendTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletCoreSendTransactionView.swift; sourceTree = "<group>"; };
+		A1DE8DE92838EC2500962FF8 /* CoinTokenResultEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinTokenResultEntity.swift; sourceTree = "<group>"; };
+		A1DE8DED2838F34400962FF8 /* ETHBalance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ETHBalance.swift; sourceTree = "<group>"; };
 		A1E0A30B27F1F74E0048E16C /* ETHTransactionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ETHTransactionModel.swift; sourceTree = "<group>"; };
 		A1EEEDE527D059300075E0C8 /* ERC20TokenAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ERC20TokenAddress.swift; sourceTree = "<group>"; };
 		A1EEEDE727D0C44F0075E0C8 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -450,6 +454,7 @@
 			children = (
 				A1690E35280BD3EE005C4D22 /* AccountBalance.swift */,
 				A1037B4A281FABCE006EF334 /* TokenDetail.swift */,
+				A1DE8DED2838F34400962FF8 /* ETHBalance.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -518,10 +523,8 @@
 		A1B602D528012DC500EB9365 /* Response */ = {
 			isa = PBXGroup;
 			children = (
-				A1C1AA2A27E99CC400951807 /* ETHResult.swift */,
-				A1CB5AC827EB5FE100626833 /* SendRawTransactionResult.swift */,
-				A1B602D628012DE100EB9365 /* TokenBalanceResultEntity.swift */,
-				A1037B48281FA029006EF334 /* TokenDetailResultEntity.swift */,
+				A1DE8DEB2838EC2800962FF8 /* Alchemy */,
+				A1DE8DEC2838EC3000962FF8 /* CoinApi */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -584,6 +587,25 @@
 				A168405727DCC1ED00FB3C8B /* AccountCreationView.swift */,
 			);
 			path = Account;
+			sourceTree = "<group>";
+		};
+		A1DE8DEB2838EC2800962FF8 /* Alchemy */ = {
+			isa = PBXGroup;
+			children = (
+				A1C1AA2A27E99CC400951807 /* ETHResult.swift */,
+				A1CB5AC827EB5FE100626833 /* SendRawTransactionResult.swift */,
+				A1B602D628012DE100EB9365 /* TokenBalanceResultEntity.swift */,
+				A1037B48281FA029006EF334 /* TokenDetailResultEntity.swift */,
+			);
+			path = Alchemy;
+			sourceTree = "<group>";
+		};
+		A1DE8DEC2838EC3000962FF8 /* CoinApi */ = {
+			isa = PBXGroup;
+			children = (
+				A1DE8DE92838EC2500962FF8 /* CoinTokenResultEntity.swift */,
+			);
+			path = CoinApi;
 			sourceTree = "<group>";
 		};
 		A1EEEDEC27D0CCFE0075E0C8 /* Lottie */ = {
@@ -881,7 +903,9 @@
 				A1690E36280BD3EE005C4D22 /* AccountBalance.swift in Sources */,
 				A1D01FB027D34B6500149E74 /* ButtonView.swift in Sources */,
 				A1065B7027F74A8700BDC08B /* ContractABIManager.swift in Sources */,
+				A1DE8DEA2838EC2500962FF8 /* CoinTokenResultEntity.swift in Sources */,
 				A1CB5AC927EB5FE100626833 /* SendRawTransactionResult.swift in Sources */,
+				A1DE8DEE2838F34400962FF8 /* ETHBalance.swift in Sources */,
 				A1C1AA2927E99C2C00951807 /* ETHAlchemyRequest.swift in Sources */,
 				A127A68027EDE332005F01EE /* WalletCoreSendView.swift in Sources */,
 				A1D01FBA27D34C5000149E74 /* AccountLoadingView.swift in Sources */,
