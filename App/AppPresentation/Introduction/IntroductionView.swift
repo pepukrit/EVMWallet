@@ -32,23 +32,24 @@ struct IntroductionView: View {
                         Text("There is no wallet registered yet")
                             .font(with: 16, weight: .thin)
                         
-                        Button(action: {
-                            walletManager.walletManagerType = .web3swift(Web3SwiftWalletManager())
-                        }) {
-                            Text("Create Wallet by Web3swift")
-                                .font(with: 16, weight: .regular)
-                                .padding()
-                        }
-                        .background(Color.buttonBgColor)
-                        .roundedClip()
-                        
-                        Text("Or")
-                            .font(weight: .thin)
+                        // Hide usage of web3swift wallet
+//                        Button(action: {
+//                            walletManager.walletManagerType = .web3swift(Web3SwiftWalletManager())
+//                        }) {
+//                            Text("Create Wallet by Web3swift")
+//                                .font(with: 16, weight: .regular)
+//                                .padding()
+//                        }
+//                        .background(Color.buttonBgColor)
+//                        .roundedClip()
+//
+//                        Text("Or")
+//                            .font(weight: .thin)
                         
                         Button(action: {
                             walletManager.walletManagerType = .walletCore(WalletCoreManager())
                         }) {
-                            Text("Create Wallet by WalletCore")
+                            Text("Create Wallet")
                                 .font(with: 16, weight: .regular)
                                 .padding()
                         }
