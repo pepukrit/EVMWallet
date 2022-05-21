@@ -15,7 +15,7 @@ struct AccountDetailView: View {
             VStack {
                 HeaderView()
                 
-                PriceStatusView()
+                PriceStatusView(walletCore: .init())
                 
                 ButtonView()
             }

@@ -18,6 +18,7 @@ final class WalletCoreManager: ObservableObject {
     
     //TODO: Clean up these local variables
     @Published var accounts: [ERC20TokenModel] = []
+    @Published var totalPrice: Double = 0
     @Published var encodedSignTransaction: String?
     @Published var sentTransaction: String?
     
@@ -194,9 +195,16 @@ extension WalletCoreManager: WalletManagerProtocol {
                   unrealizedDiff: "",
                   coinType: .chainlink)
         }
+        
+        var price: Double = 0
+        _ = erc20TokensDetail.compactMap { price += $0.tokenBalance.tokenBalanceInDouble }
+        price += ethBalance.balanceInUSD
+        let totalPrice = price
+        
         let allTokenModels: [ERC20TokenModel] = [ethTokenModel] + erc20TokenModels
         DispatchQueue.main.async {
             self.accounts = allTokenModels
+            self.totalPrice = totalPrice
             self.state = allTokenModels.isEmpty ? .empty : .notEmpty
         }
     }

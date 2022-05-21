@@ -15,7 +15,9 @@ struct AccountDetailViewV2: View {
             VStack {
                 HeaderView()
                 
-                PriceStatusView()
+                if let walletCore = wallet.walletCoreSwiftWallet {
+                    PriceStatusView(walletCore: walletCore)
+                }
                 
                 ButtonView()
             }

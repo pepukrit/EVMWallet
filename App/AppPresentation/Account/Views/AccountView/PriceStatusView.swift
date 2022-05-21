@@ -8,19 +8,12 @@
 import SwiftUI
 
 struct PriceStatusView: View {
+    @ObservedObject var walletCore: WalletCoreManager
+    
     var body: some View {
         VStack {
-            Text("$999,999")
-                .font(.system(size: 48, weight: .bold, design: .monospaced))
-
-            HStack {
-                Text("+$5,999")
-
-                Text("+9.99%")
-            }
-            .font(.system(size: 18, weight: .semibold, design: .monospaced))
-            .foregroundColor(.green)
-            .padding(.horizontal)
+            Text("$\(String(format: "%.2f", walletCore.totalPrice))")
+                .font(.system(size: 36, weight: .bold, design: .monospaced))
         }
         .foregroundColor(.white)
         .padding()

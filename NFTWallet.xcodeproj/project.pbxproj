@@ -453,8 +453,8 @@
 			isa = PBXGroup;
 			children = (
 				A1690E35280BD3EE005C4D22 /* AccountBalance.swift */,
-				A1037B4A281FABCE006EF334 /* TokenDetail.swift */,
 				A1DE8DED2838F34400962FF8 /* ETHBalance.swift */,
+				A1037B4A281FABCE006EF334 /* TokenDetail.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
