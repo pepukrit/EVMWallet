@@ -47,6 +47,7 @@
 		A1690E31280BD2BD005C4D22 /* NetworkMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1690E30280BD2BD005C4D22 /* NetworkMapper.swift */; };
 		A1690E36280BD3EE005C4D22 /* AccountBalance.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1690E35280BD3EE005C4D22 /* AccountBalance.swift */; };
 		A1690E39280BD7BD005C4D22 /* AccountBalanceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1690E38280BD7BD005C4D22 /* AccountBalanceRepository.swift */; };
+		A17B365E283A176E00EF9898 /* WalletCoreDepositView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17B365D283A176E00EF9898 /* WalletCoreDepositView.swift */; };
 		A183B71E2822BCAE006D4F70 /* Async+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A183B71D2822BCAE006D4F70 /* Async+Extension.swift */; };
 		A18C103F27F8ACE00091C0E2 /* ETHAlchemySCRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18C103E27F8ACE00091C0E2 /* ETHAlchemySCRequest.swift */; };
 		A19027A6281E93790038A038 /* WalletDomainMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19027A5281E93790038A038 /* WalletDomainMapper.swift */; };
@@ -142,6 +143,7 @@
 		A1690E30280BD2BD005C4D22 /* NetworkMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMapper.swift; sourceTree = "<group>"; };
 		A1690E35280BD3EE005C4D22 /* AccountBalance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountBalance.swift; sourceTree = "<group>"; };
 		A1690E38280BD7BD005C4D22 /* AccountBalanceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBalanceRepository.swift; sourceTree = "<group>"; };
+		A17B365D283A176E00EF9898 /* WalletCoreDepositView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletCoreDepositView.swift; sourceTree = "<group>"; };
 		A183B71D2822BCAE006D4F70 /* Async+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Async+Extension.swift"; sourceTree = "<group>"; };
 		A18C103E27F8ACE00091C0E2 /* ETHAlchemySCRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ETHAlchemySCRequest.swift; sourceTree = "<group>"; };
 		A19027A5281E93790038A038 /* WalletDomainMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletDomainMapper.swift; sourceTree = "<group>"; };
@@ -467,6 +469,14 @@
 			path = AccountBalanceRepository;
 			sourceTree = "<group>";
 		};
+		A17B365C283A175900EF9898 /* DepositView */ = {
+			isa = PBXGroup;
+			children = (
+				A17B365D283A176E00EF9898 /* WalletCoreDepositView.swift */,
+			);
+			path = DepositView;
+			sourceTree = "<group>";
+		};
 		A19027A4281E93690038A038 /* Mapper */ = {
 			isa = PBXGroup;
 			children = (
@@ -541,6 +551,7 @@
 			isa = PBXGroup;
 			children = (
 				A1D01FA927D34AF300149E74 /* AccountView */,
+				A17B365C283A175900EF9898 /* DepositView */,
 				A1D01FAA27D34AFB00149E74 /* SendView */,
 			);
 			path = Views;
@@ -862,6 +873,7 @@
 				A1037B4B281FABCE006EF334 /* TokenDetail.swift in Sources */,
 				A1690E31280BD2BD005C4D22 /* NetworkMapper.swift in Sources */,
 				A195EE3627FB3F8D00B8D2FE /* WalletManager.swift in Sources */,
+				A17B365E283A176E00EF9898 /* WalletCoreDepositView.swift in Sources */,
 				A19027A6281E93790038A038 /* WalletDomainMapper.swift in Sources */,
 				A14F0B6327CE665000CF6388 /* ERC20TokenModel.swift in Sources */,
 				A168B8F427ECD89F0065B9C8 /* PrimitiveTypes+Extension.swift in Sources */,

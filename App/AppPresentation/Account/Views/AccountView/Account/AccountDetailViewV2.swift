@@ -13,13 +13,11 @@ struct AccountDetailViewV2: View {
     var body: some View {
         VStack {
             VStack {
-                HeaderView()
-                
                 if let walletCore = wallet.walletCoreSwiftWallet {
+                    HeaderView()
                     PriceStatusView(walletCore: walletCore)
+                    ButtonView()
                 }
-                
-                ButtonView()
             }
             .padding(.bottom)
             .background(

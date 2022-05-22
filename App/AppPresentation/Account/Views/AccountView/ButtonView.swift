@@ -10,10 +10,11 @@ import SwiftUI
 struct ButtonView: View {
     @EnvironmentObject var wallet: WalletManager
     @State var isSendPresented: Bool = false
+    @State var isDepositPresented: Bool = false
     
     var body: some View {
         HStack(spacing: 8) {
-            Button(action: {}, label: {
+            Button(action: { isDepositPresented = true }, label: {
                 Text("Deposit")
                     .font(.system(size: 14, weight: .bold, design: .monospaced))
                     .foregroundColor(.white)
@@ -28,6 +29,10 @@ struct ButtonView: View {
             if let wallet = wallet.walletCoreSwiftWallet {
                 NavigationLink(destination: WalletCoreSendTransactionView(wallet: wallet),
                                isActive: $isSendPresented) {
+                    EmptyView()
+                }
+                NavigationLink(destination: WalletCoreDepositView(wallet: wallet),
+                               isActive: $isDepositPresented) {
                     EmptyView()
                 }
             } else {

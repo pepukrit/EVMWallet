@@ -88,6 +88,13 @@ struct WalletCoreSendTransactionView: View {
             .background(Color.primaryBgColor)
             .navigationTitle(Text("Send"))
             .navigationBarTitleDisplayMode(.inline)
+            .alert(isPresented: $shouldShowDialogDone) {
+                Alert(title: Text(alertViewModel.text),
+                      message: Text(alertViewModel.message),
+                      dismissButton: .default(Text(alertViewModel.dismissButton)) {
+                    mode.wrappedValue.dismiss()
+                })
+            }
             
             if shouldAskPasswordConfirmation {
                 ZStack {
@@ -119,6 +126,7 @@ struct WalletCoreSendTransactionView: View {
                                         await wallet.sendTransaction(with: destinationAmount, address: destinationAddress) { result in
                                             alertViewModel = makeAlertComponentFrom(result: result)
                                             shouldShowLoadingView = false
+                                            shouldAskPasswordConfirmation = false
                                             shouldShowDialogDone = true
                                         }
                                     } else {
@@ -140,13 +148,6 @@ struct WalletCoreSendTransactionView: View {
                         .padding()
                         .background(Color.buttonBgColor)
                         .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                        .alert(isPresented: $shouldShowDialogDone) {
-                            Alert(title: Text(alertViewModel.text),
-                                  message: Text(alertViewModel.message),
-                                  dismissButton: .default(Text(alertViewModel.dismissButton)) {
-                                mode.wrappedValue.dismiss()
-                            })
-                        }
                         .alert(isPresented: $shouldShowAlertDialog) {
                             makeAlertPassphraseMismatched()
                         }

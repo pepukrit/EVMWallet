@@ -46,6 +46,7 @@ struct WalletCoreCryptocurrencyList: View {
             }
         }
         .task {
+            print("Running task...")
             await wallet.getERC20TokenBalances(
                 address: wallet.retrieveAddress(coin: .ethereum),
                 contractAddresses: [ERC20TokenCoin.chainlink.address])
